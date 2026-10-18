@@ -1077,3 +1077,8 @@ body.pg-ap{background:var(--branco)}
 .lj .lc-dica{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:var(--roxo-tinta)}
 .lj .lc-dica i{width:22px;height:22px;border-radius:50%;background:var(--amarelo);position:relative;flex:none;animation:pulsor 1.6s infinite}
 .lj .lc-dica i::after{content:"";position:absolute;inset:7px;border-radius:50%;background:var(--carvao)}
+
+/* logo toda branca e maior no topo roxo e no rodapé (pedido do dono, 18/10/2026) */
+.mk .topo .marca img{height:40px;width:auto;filter:brightness(0) invert(1)}
+.lj .r2-marca img{height:40px;filter:brightness(0) invert(1)}
+@media (max-width:760px){.mk .topo .marca img{height:32px}.lj .r2-marca img{height:34px}}
