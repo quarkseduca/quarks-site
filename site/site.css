@@ -63,3 +63,7 @@ button{font:inherit;color:inherit}
 .whats svg{width:28px;height:28px}
 .pg-site .branca{background:var(--branco);border-radius:48px 48px 0 0}
 .pg-site main{overflow-x:clip}
+
+/* rodapé: a linha de baixo quebra no celular (links de privacidade e termos) */
+.lj .r2-base{flex-wrap:wrap}
+.r2-leg{display:inline-flex;gap:6px;flex-wrap:wrap}

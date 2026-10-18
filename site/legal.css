@@ -1,0 +1,31 @@
+/* =====================================================================
+   Páginas de Privacidade e Termos do site (privacidade/ e termos/).
+   Usa a base (site.css) e a vitrine (vitrine.css); aqui só o miolo do texto.
+   ===================================================================== */
+.lg-capa{background:radial-gradient(110% 120% at 85% 0%, #8F74E7 0%, var(--roxo) 40%, var(--roxo-fundo) 75%, var(--roxo-noite) 100%);color:var(--branco);border-radius:0 0 40px 40px}
+.lg-capa .lg-in{padding-top:36px;padding-bottom:44px}
+.lg-capa h1{font-family:var(--f-titulo);font-size:52px;line-height:1;font-weight:800;letter-spacing:-.04em;margin:0}
+.lg-capa p{font-size:18px;opacity:.92;margin-top:14px;max-width:52ch;text-wrap:pretty}
+.lg-capa .lg-data{display:inline-block;margin-top:18px;font-size:13.5px;font-weight:600;background:rgba(255,255,255,.14);padding:6px 14px;border-radius:var(--pilula)}
+.lg-in{max-width:860px;margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+.lg-corpo{padding-top:34px;padding-bottom:56px}
+.lg-bloco{background:var(--branco);border:1px solid var(--linha);border-radius:28px;padding:28px 30px;margin-bottom:18px}
+.lg-bloco h2{font-family:var(--f-titulo);font-size:24px;line-height:1.15;font-weight:800;letter-spacing:-.02em;color:var(--roxo-tinta);margin:0 0 12px}
+.lg-bloco p,.lg-bloco li{text-wrap:pretty}
+.lg-bloco p + p,.lg-bloco p + ul,.lg-bloco ul + p{margin-top:10px}
+.lg-bloco ul{margin:10px 0 0;padding-left:20px}
+.lg-bloco li + li{margin-top:6px}
+.lg-bloco a{color:var(--roxo-tinta);font-weight:600}
+.lg-bloco .lg-fonte{font-size:13.5px;color:var(--cinza);margin-top:12px}
+.lg-contato{background:var(--lilas-2);border-color:transparent}
+.lg-troca{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.lg-troca a{display:inline-block;text-decoration:none;font-weight:700;padding:11px 20px;border-radius:var(--pilula);background:var(--roxo);color:var(--branco)}
+.lg-troca a.lg-sec{background:var(--branco);color:var(--roxo-tinta);border:1px solid var(--linha)}
+@media (max-width:640px){
+  .lg-capa{border-radius:0 0 28px 28px}
+  .lg-capa h1{font-size:38px}
+  .lg-capa p{font-size:16.5px}
+  .lg-in{padding-left:16px;padding-right:16px}
+  .lg-bloco{padding:22px 18px;border-radius:22px}
+  .lg-bloco h2{font-size:21px}
+}
