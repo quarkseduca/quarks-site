@@ -1082,3 +1082,6 @@ body.pg-ap{background:var(--branco)}
 .mk .topo .marca img{height:40px;width:auto;filter:brightness(0) invert(1)}
 .lj .r2-marca img{height:40px;filter:brightness(0) invert(1)}
 @media (max-width:760px){.mk .topo .marca img{height:32px}.lj .r2-marca img{height:34px}}
+
+/* nota do asterisco embaixo dos selos da trilha (19/10/2026) */
+.tq-nota{margin:14px auto 0;max-width:760px;text-align:center;font-size:13px;color:rgba(255,255,255,.72)}

@@ -72,3 +72,34 @@ async function iniciar(){
 }
 document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", iniciar) : iniciar();
 })();
+
+/* Acompanhamento Escolar (19/10/2026): "Quero conhecer" e "Ver horários" abrem uma janela com a explicação e um pedido curto,
+   enviado pelo WhatsApp da coordenação (nada fica guardado no site). Sem JavaScript, os botões continuam indo direto ao WhatsApp. */
+function janelas(){
+  const zap = (a) => ((a && a.getAttribute("href") || "").match(/wa\.me\/(\d{10,13})/) || [])[1] || "5532998057212";
+  document.querySelectorAll("[data-janela]").forEach((a) => a.addEventListener("click", (e) => {
+    const j = document.getElementById("j-" + a.dataset.janela); if (!j || !j.showModal) return;
+    e.preventDefault(); j.dataset.zap = zap(a); j.showModal(); j.scrollTop = 0; document.documentElement.classList.add("sem-rolar");
+  }));
+  document.querySelectorAll("dialog.janela").forEach((j) => {
+    j.addEventListener("close", () => document.documentElement.classList.remove("sem-rolar"));
+    j.addEventListener("click", (e) => { if (e.target === j || e.target.closest("[data-fechar]")) j.close(); });
+    j.querySelectorAll("[data-hor]").forEach((b) => b.addEventListener("click", () => {
+      j.querySelectorAll("[data-hor]").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+      const sel = j.querySelector("select[name=horario]"); if (sel) sel.value = b.dataset.hor;
+      const f = j.querySelector("form"); if (f) f.scrollIntoView({ behavior: "smooth", block: "start" });
+    }));
+    const f = j.querySelector("form[data-form-acomp]"); if (!f) return;
+    f.addEventListener("submit", (e) => {
+      e.preventDefault(); const d = new FormData(f), erro = f.querySelector(".jf-erro"), disc = d.getAll("disc");
+      const falta = [["aluno", "o nome do aluno"], ["escola", "a escola"], ["ano", "o ano escolar"]].filter(([k]) => !String(d.get(k) || "").trim()).map((x) => x[1]);
+      if (!disc.length) falta.push("ao menos uma disciplina");
+      if (falta.length) { erro.textContent = "Falta preencher " + falta.join(", ") + "."; erro.hidden = false; return; }
+      erro.hidden = true;
+      const linhas = ["Olá! " + d.get("interesse") + " (Acompanhamento Escolar).", "", "Aluno: " + d.get("aluno").trim(), "Escola: " + d.get("escola").trim(), "Ano escolar: " + d.get("ano"), "Disciplinas: " + disc.join(", ")];
+      if (d.get("horario")) linhas.push("Horário de preferência: " + d.get("horario"));
+      window.open("https://wa.me/" + (j.dataset.zap || "5532998057212") + "?text=" + encodeURIComponent(linhas.join("\n")), "_blank", "noopener");
+    });
+  });
+}
+document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", janelas) : janelas();
