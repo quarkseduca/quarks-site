@@ -118,3 +118,30 @@ html.sem-rolar{overflow:hidden}
 .hor-dica{margin:4px 0 0;font-size:14px;color:#4A4560}
 @media (max-width:700px){.j-fotos{grid-template-columns:1.3fr 1fr;height:180px}.j-fotos img:nth-child(n+3){display:none}.j-3,.hor,.jf-2{grid-template-columns:1fr}.j-hist{flex-direction:column;align-items:flex-start;gap:6px}.janela{border-radius:26px}}
 @media (prefers-reduced-motion:reduce){.janela[open]{animation:none}}
+
+/* De onde você estiver (19/10/2026, protótipo 5 "Órbita roxa", Aulas online no centro) */
+.orbroxa{position:relative;overflow:hidden;color:#fff;margin-top:0;border-radius:0;background:radial-gradient(700px 360px at 10% 0%,rgba(255,255,255,.14),transparent 60%),linear-gradient(165deg,#7357DE 0%,#5B37AE 55%,#4B258D 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
+.orbroxa .or-orb{position:absolute;left:50%;top:60%;width:130%;height:440px;transform:translate(-50%,-50%) rotate(-6deg);border:1.5px solid rgba(255,255,255,.22);border-radius:50%;pointer-events:none}
+.orbroxa .or-orb.b{width:88%;height:270px;border-style:dashed;border-color:rgba(255,209,12,.45)}
+.orbroxa .sec{position:relative}
+.or-cab{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;justify-content:space-between;margin-bottom:58px}
+.or-cab h2{color:#fff;font-size:clamp(30px,4vw,46px);margin:0}
+.or-cab p{margin:8px 0 0;color:rgba(255,255,255,.82);max-width:52ch}
+.or3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;align-items:start}
+.orc{background:#fff;color:var(--carvao);border-radius:30px;padding:0 22px 22px;display:grid;gap:10px;text-decoration:none;transition:transform .25s ease,box-shadow .25s ease;box-shadow:0 30px 60px -36px rgba(20,8,60,.8)}
+.orc-au{transform:translateY(-28px)}
+.orc:hover{transform:translateY(-8px)}.orc-au:hover{transform:translateY(-36px)}
+.or-pop{height:160px;margin-top:-48px;border-radius:24px;overflow:hidden;display:grid;place-items:center;box-shadow:0 20px 40px -22px rgba(20,8,60,.8);background:#fff}
+.or-pop img{width:100%;height:100%;object-fit:cover;object-position:top}
+.orc-ap .or-pop{background:linear-gradient(160deg,#FFD2E4,#FFE9F2);box-shadow:none;overflow:visible}
+.orc-ap .leque img{width:84px;height:auto;object-fit:initial}
+.orc h3{font-size:25px;margin:0}
+.orc p{margin:0;font-size:14.5px;color:#4A4560}
+.or-pe{display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+.or-pe .oc-pr b{font-family:var(--f-titulo);font-weight:800;font-size:23px;display:block;line-height:1.1}
+.or-pe .oc-pr small{font-size:12.5px;color:var(--cinza)}
+.or-ir{display:inline-flex;align-items:center;gap:6px;font-weight:800;color:var(--roxo-tinta);font-size:14.5px}
+.or-ir svg{width:18px;height:18px}
+.d-g .orc .mods-g{display:flex;gap:6px;flex-wrap:wrap}.d-g .orc .mods-g span{background:var(--lilas);border-radius:999px;padding:3px 10px;font-size:12px;font-weight:800;color:var(--roxo-tinta)}
+@media (max-width:900px){.or3{grid-template-columns:minmax(0,1fr);gap:56px}.orc-au{transform:none;order:-1}.orc-au:hover{transform:translateY(-8px)}.or-cab{margin-bottom:46px}}
+@media (prefers-reduced-motion:reduce){.orc{transition:none}}
