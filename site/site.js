@@ -86,7 +86,8 @@ function janelas(){
     j.addEventListener("click", (e) => { if (e.target === j || e.target.closest("[data-fechar]")) j.close(); });
     j.querySelectorAll("[data-hor]").forEach((b) => b.addEventListener("click", () => {
       j.querySelectorAll("[data-hor]").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
-      const sel = j.querySelector("select[name=horario]"); if (sel) sel.value = b.dataset.hor;
+      const ini = b.dataset.hor.match(/(\d+h\d*) às/)[1], sab = /^Sábado/.test(b.dataset.hor); // marca o módulo em todos os dias dele (seg a sex, ou sábado)
+      j.querySelectorAll("input[name=hor]").forEach((x) => { if (x.dataset.mod === ini && x.value.startsWith("Sáb") === sab) x.checked = true; });
       const f = j.querySelector("form"); if (f) f.scrollIntoView({ behavior: "smooth", block: "start" });
     }));
     const f = j.querySelector("form[data-form-acomp]"); if (!f) return;
@@ -97,7 +98,7 @@ function janelas(){
       if (falta.length) { erro.textContent = "Falta preencher " + falta.join(", ") + "."; erro.hidden = false; return; }
       erro.hidden = true;
       const linhas = ["Olá! " + d.get("interesse") + " (Acompanhamento Escolar).", "", "Aluno: " + d.get("aluno").trim(), "Escola: " + d.get("escola").trim(), "Ano escolar: " + d.get("ano"), "Disciplinas: " + disc.join(", ")];
-      if (d.get("horario")) linhas.push("Horário de preferência: " + d.get("horario"));
+      const hor = d.getAll("hor"); if (hor.length) { const porDia = {}; hor.forEach((h) => { const [dia, faixa] = h.split(" "); (porDia[dia] = porDia[dia] || []).push(faixa); }); linhas.push("Horários de preferência: " + Object.keys(porDia).map((k) => k + " " + porDia[k].join(", ")).join("; ")); }
       window.open("https://wa.me/" + (j.dataset.zap || "5532998057212") + "?text=" + encodeURIComponent(linhas.join("\n")), "_blank", "noopener");
     });
   });
