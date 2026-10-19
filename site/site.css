@@ -168,3 +168,25 @@ html.sem-rolar{overflow:hidden}
 @media (max-width:520px){.jh-l{grid-template-columns:36px repeat(4,minmax(0,1fr));gap:4px}.jh-l span{font-size:11.5px;padding:8px 2px;border-radius:10px}}
 .jh-l span em{font-style:normal}.jh-l span i{font-style:normal}
 @media (max-width:520px){.jh-l span{display:grid;line-height:1.15;padding:6px 2px;font-size:12.5px}.jh-l span i{display:none}}
+
+/* cursos presenciais e individuais (19/10/2026): cartão branco com a foto em cima e o texto embaixo, para ler bem;
+   cada curso mantém a sua cor no detalhe (faixa da foto, selo e chamada) */
+body.d-g .linha4 .pp-pism{--cor:#4B39B3;--cor-c:#EEEBFC}
+body.d-g .linha4 .pp-if{--cor:#0B6B6D;--cor-c:#E1F3F2}
+body.d-g .linha4 .pp-av{--cor:#CC2A72;--cor-c:#FDE7F0}
+body.d-g .linha4 .pp-me{--cor:#B9530A;--cor-c:#FDEEE2}
+body.d-g .linha4 .pp{display:flex;flex-direction:column;min-height:0;background:#fff;color:var(--carvao);border:1.5px solid var(--lilas-2);border-radius:26px;overflow:hidden;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+body.d-g .linha4 .pp:hover{transform:translateY(-4px);border-color:var(--cor);box-shadow:0 24px 44px -28px rgba(60,30,140,.45)}
+body.d-g .linha4 .pp::after{display:none}
+body.d-g .linha4 .pp > img{position:static;inset:auto;width:100%;height:210px;object-fit:cover;object-position:center 25%;border-bottom:5px solid var(--cor);transform:none}
+body.d-g .linha4 .pp:hover > img{transform:none}
+body.d-g .linha4 .pp .pp-tx{position:static;padding:18px 20px 20px;display:flex;flex-direction:column;gap:8px;flex:1;color:var(--carvao)}
+body.d-g .linha4 .pp .selo-g{align-self:flex-start;background:var(--cor-c);color:var(--cor);font-weight:800;font-size:12.5px;border-radius:999px;padding:4px 11px}
+body.d-g .linha4 .pp h3{font-size:22px;line-height:1.12;color:var(--carvao);margin:0}
+body.d-g .linha4 .pp .pp-tx p{font-size:14.5px;line-height:1.55;color:#4A4560;margin:0}
+body.d-g .linha4 .pp .pp-bt{margin-top:auto;padding:8px 0 0;background:none;box-shadow:none;color:var(--cor);font-weight:800;font-size:15px;border-radius:0;gap:6px}
+body.d-g .linha4 .pp .pp-bt::after{content:"→";transition:transform .2s}
+body.d-g .linha4 .pp:hover .pp-bt::after{transform:translateX(4px)}
+@media (max-width:760px){body.d-g .linha4 .pp > img{height:170px}body.d-g .linha4 .pp h3{font-size:19px}body.d-g .linha4 .pp .pp-tx{padding:14px 16px 16px}body.d-g .linha4 .pp .pp-tx p{font-size:13.5px}}
+body.d-g .linha4 .pp .selo-g{border-radius:12px;line-height:1.3}
+@media (max-width:760px){body.d-g .linha4{grid-template-columns:minmax(0,1fr);gap:14px}body.d-g .linha4 .pp .pp-tx p{display:block}body.d-g .linha4 .pp > img{height:190px}}
