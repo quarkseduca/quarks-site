@@ -151,3 +151,7 @@ html.sem-rolar{overflow:hidden}
 .j-topo-tx{display:grid;gap:14px;align-content:center;padding:28px clamp(16px,3vw,32px) 28px 22px}
 .j-topo-tx h2{font-size:clamp(26px,3vw,34px)}
 @media (max-width:700px){.j-topo{grid-template-columns:minmax(0,1fr)}.j-foto{min-height:0;height:300px;object-position:50% 30%}.j-topo-tx{padding:18px 12px 14px}}
+/* foto da equipe com os aprovados (paisagem): a coluna da foto fica mais larga para não cortar ninguém */
+@media (min-width:701px){.j-topo{grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr)}}
+.j-foto{object-position:50% 45%}
+@media (max-width:700px){.j-foto{height:auto;aspect-ratio:663/597;object-position:50% 50%}}
