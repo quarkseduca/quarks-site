@@ -9,3 +9,4 @@
 - Identidade visual: roxo #6551D1 (dominante, tons escuros sempre puxando para o roxo, nunca para o azul), lilás #F1EEFD, branco, carvão #292B2C, amarelo #FFD10C só em destaque. Bricolage Grotesque nos títulos, Figtree no texto. Só tema claro.
 - Nada de número, depoimento, preço ou aprovado inventado. Textos, fotos, listas e preços editáveis pelo painel (mesmo padrão da loja: atributos `data-c` e `data-lista`).
 - Nunca faça commit de senhas, chaves, `config.php` nem dados de alunos (LGPD).
+- **Economia de tokens:** em chat longo, ao fim de uma etapa, avise o dono que é bom momento para compactar e entregue pronta a mensagem `/compact guarde: …` (ou um resumo de até 5 linhas para colar num chat novo, se o assunto mudar). Regra completa no `CLAUDE.md` do cérebro.
