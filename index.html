@@ -33,6 +33,7 @@
       <a href="#trilha" data-c="site.topo.t2">Trilha de estudos</a>
       <a href="#aprovados" data-c="site.topo.t3">Aprovados</a>
       <a href="#online" data-c="site.topo.t4">Online</a>
+      <a href="#simule" data-c="site.topo.t9">Simule</a>
       <a href="#visite" data-c="site.topo.t5">Visite</a>
       <a class="entrar-m" href="https://portal.quarksedu.com.br/" data-c="site.topo.t6" data-c-href="site.topo.t6.link">Entrar no Portal Quarks</a>
     </nav>
@@ -173,7 +174,19 @@
     </div>
   </div>
 </div>
+ 
 
+<!-- Simule sua aprovação (dono, 10/11/2026; roteiro novidades-estudo-de-mercado, Chat A): o simulador vem do banco de notas da gestão
+     (sistema.quarksedu.com.br/bancodenotas/simulador.js), só com números agregados das notas oficiais da UFJF (Juiz de Fora) e do IF Sudeste MG. -->
+<section class="sec" id="simule" data-sec="site.simule" data-sec-rot="Simule sua aprovação" aria-labelledby="h-sim">
+  <span class="so-painel" data-c="site.simule.mostrar" data-rot="Mostrar este bloco? (escreva não para esconder)">sim</span>
+  <div style="max-width:820px;margin:0 auto">
+    <h2 id="h-sim" data-c="site.simule.t1">Simule sua aprovação</h2>
+    <p data-c="site.simule.t2">Digite a sua nota e veja onde você estaria entre quem fez o PISM e quanto falta para o curso que você quer na UFJF. Usamos as notas oficiais de todos os triênios desde 2016, sem nome de ninguém.</p>
+    <div id="simulador-quarks" style="margin-top:18px"></div>
+    <p style="margin-top:18px"><a class="btn am" href="https://wa.me/5532998057212?text=Ol%C3%A1!%20Fiz%20o%20simulador%20do%20site%20e%20quero%20saber%20como%20estudar%20no%20Quarks." target="_blank" rel="noopener" data-c="site.simule.t3" data-c-href="site.simule.t3.link">Quero chegar lá com o Quarks</a></p>
+  </div>
+</section>
 
 <section class="sec" id="visite" data-sec="site.visite" data-sec-rot="Venha conhecer o Quarks" aria-labelledby="h-vis">
   <span class="so-painel" data-c="site.visite.mostrar" data-rot="Mostrar este bloco? (escreva não para esconder)">sim</span>
@@ -282,5 +295,7 @@
 <script src="site/site-20261110.js"></script>
 <script src="site/vitrine.js?v=1"></script>
 <script src="https://sistema.quarksedu.com.br/sinal.js" data-ramo="site" defer></script>
+<script src="https://sistema.quarksedu.com.br/bancodenotas/simulador.js" defer></script>
+<script>window.addEventListener('DOMContentLoaded', function () { var el = document.getElementById('simulador-quarks'); if (el && window.QuarksSimulador) window.QuarksSimulador.montar(el, { modo: 'site' }); else if (el) el.innerHTML = ''; });</script>
 </body>
 </html>
