@@ -6,6 +6,7 @@
 (() => {
 "use strict";
 const LOJA = "https://loja.quarksedu.com.br";
+const SISTEMA = "https://sistema.quarksedu.com.br"; // 10/11/2026: Rede de aprovados (gestão 24.76): só os autorizados pela família
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
 const prontos = []; let pronto = false;
 window.Loja = { esc, aoCarregar: fn => pronto ? fn() : prontos.push(fn) };
@@ -14,6 +15,7 @@ const linkOk = v => /^(https?:\/\/|\/(?!\/)|#|mailto:|tel:)/i.test(v);
 /* imagens: as enviadas pelo painel ficam na loja (capas/up/site-…); as originais, em site/img */
 function caminhoImg(v){
   if (/^\/?capas\/up\/site-[a-z0-9-]+\.(webp|jpg)$/i.test(v)) return `${LOJA}/${v.replace(/^\//, "")}`;
+  if (/^https:\/\/sistema\.quarksedu\.com\.br\/portal\.php\?a=aprovado_foto&id=\d+&v=v\d+$/.test(v)) return v; // foto de aprovado autorizado (Rede de aprovados)
   if (/^https:\/\/www\.quarksedu\.com\.br\/site\/img\/[a-z0-9_.-]+\.(webp|jpg|png)$/i.test(v)) return location.hostname.endsWith("quarksedu.com.br") ? v.replace(/^https:\/\/www\.quarksedu\.com\.br\//, "/") : v;
   return "";
 }
@@ -46,6 +48,27 @@ function aplicar(c){
   preencher(document, campos, imagens);
 }
 
+/* Rede de aprovados (gestão > Comercial > Rede de aprovados): os autorizados com foto entram na frente da faixa, sem repetir nome */
+async function aprovadosDoSistema(){
+  const box = document.querySelector(".aprov-trilho"); if (!box) return;
+  try {
+    const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), 4000);
+    const r = await fetch(`${SISTEMA}/portal.php?a=aprovados_site`, { cache:"no-cache", signal:ctl.signal }); clearTimeout(t); if (!r.ok) return;
+    const j = await r.json(); const L = (Array.isArray(j.aprovados) ? j.aprovados : []).filter(x => x && x.nome && caminhoImg(String(x.foto || "")));
+    if (!L.length) return;
+    const modelo = box.querySelector(".apf"); if (!modelo) return;
+    const ja = new Set([...box.querySelectorAll("[data-f='f0']")].map(b => b.textContent.trim().toLowerCase()));
+    const novos = L.filter(x => !ja.has(String(x.nome).trim().toLowerCase())).slice(0, 30).map(x => {
+      const el = modelo.cloneNode(true), img = el.querySelector("img"), b = el.querySelector("[data-f='f0']"), s = el.querySelector("[data-f='f1']");
+      if (img) { img.removeAttribute("srcset"); img.src = caminhoImg(String(x.foto)); img.alt = String(x.nome); }
+      if (b) { b.textContent = String(x.nome); b.hidden = false; }
+      if (s) { s.textContent = [x.curso, [x.instituicao, x.ano].filter(Boolean).join(" ")].filter(Boolean).join(" · "); s.hidden = false; }
+      return el;
+    });
+    if (novos.length) { box.prepend(...novos); box.hidden = false; }
+  } catch (e) { /* sem o sistema, fica a faixa de sempre */ }
+}
+
 /* faixa dos aprovados: repete a lista para a passagem não ter emenda */
 function duplicarAprovados(){
   document.querySelectorAll(".aprov-trilho").forEach(t => {
@@ -67,6 +90,7 @@ async function iniciar(){
     const r = await fetch(`${LOJA}/conteudo.php`, { cache:"no-cache", signal:ctl.signal }); clearTimeout(t);
     if (r.ok) aplicar(await r.json());
   } catch (e) { /* sem a loja, o site mostra os textos originais */ }
+  await aprovadosDoSistema();
   duplicarAprovados();
   pronto = true; prontos.splice(0).forEach(fn => { try { fn(); } catch (e) { console.error(e); } });
 }
