@@ -1,0 +1,5 @@
+# Site do Quarks Edu (www.quarksedu.com.br). Tudo liberado para os buscadores.
+User-agent: *
+Allow: /
+
+Sitemap: https://www.quarksedu.com.br/sitemap.xml
