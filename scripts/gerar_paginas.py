@@ -14,7 +14,7 @@ O que sai (cada uma é uma pasta com index.html, servida como /pasta/):
   - simulador-pism/ (o mesmo simulador da página inicial);
   - sitemap.xml (todas as páginas) e paginas.txt (as pastas que o publicar.yml envia).
 
-Visual (13/11/2026): site/paginas-20261113.css e site/paginas-20261113.js (mudou? nome novo com a data, aqui e nos
+Visual (13/11/2026): site/paginas-20261115.css e site/paginas-20261115.js (mudou? nome novo com a data, aqui e nos
 index.html da raiz, privacidade e termos: o CDN da Hostinger guarda o arquivo antigo por 7 dias). Fotos reais em site/img/ft-*.webp.
 Imagens de compartilhamento: node scripts/gerar_og.js e depois rode este gerador de novo (site/og/*.jpg).
 
@@ -29,11 +29,11 @@ HOJE = datetime.date.today().isoformat()
 ZAP = "5532998057212"
 AVALIAR = "https://g.page/r/CU071YWDNuDYEBM/review"   # link "Pedir avaliações" do Perfil da Empresa no Google (dono, 12/11/2026)
 SIM_V = "25.14"   # mesmo ?v= do simulador na página inicial (index.html)
-CSS = ["/site/site-20261019c.css", "/site/vitrine-20261019.css", "/site/paginas-20261114c.css"]   # nome novo a cada mudança (o CDN guarda 7 dias)
+CSS = ["/site/site-20261019c.css", "/site/vitrine-20261019.css", "/site/paginas-20261115.css"]   # nome novo a cada mudança (o CDN guarda 7 dias)
 JS_SITE = "/site/site-20261110.js"
 PISM_INICIO = "07/06/2027"        # Preparatório PISM online (decisão do dono, 06/11/2026)
 PISM_INICIO_CURTO = "07/06"
-JS_PG = "/site/paginas-20261113.js"   # contagem regressiva, linha do tempo, filtros, tabelas no celular, aparição suave
+JS_PG = "/site/paginas-20261115.js"   # contagem regressiva, linha do tempo, filtros, tabelas no celular, aparição suave
 # pastas de outros sistemas no public_html: nunca podem ser usadas por página do site
 PROIBIDAS = {"familia", "lab", "labaluno", "labprof", "loja", "minhacasa", "portal", "prof", "quarks-backups", "sistema", "site", "privacidade", "termos"}
 
@@ -230,6 +230,15 @@ GALERIA = [("/site/img/ft-turma.webp", "Alunos e professores do Quarks com a cam
 
 def galeria(fotos=GALERIA):
     return '<div class="pg-galeria">' + "".join(f'<figure><img src="{s}" alt="{e(a)}" loading="lazy" width="900" height="700" style="object-position:{p}"></figure>' for s, a, p in fotos) + "</div>"
+
+
+def quadro_professor(src, nome, materias):
+    """foto recortada de um professor do Quarks num quadro roxo; raios saem dele ao passar o mouse (ou ao tocar)"""
+    raio = '<path d="M13 0 3 14h7l-3 10 11-15h-7l4-9z"/>'
+    raios = "".join(f'<svg class="r r{i}" viewBox="0 0 22 24" aria-hidden="true">{raio}</svg>' for i in range(1, 9))
+    return (f'<figure class="pg-prof" tabindex="0"><span class="pg-prof-luz" aria-hidden="true"></span>{raios}'
+            f'<img src="{src}" alt="{e(nome)}, professor de {e(materias)} do Quarks, de braços cruzados com a camiseta do Quarks" loading="lazy" width="640" height="1213">'
+            f'<figcaption><b>{e(nome)}</b><span>{e(materias)}</span></figcaption></figure>')
 
 
 def moldura(src, alt, legenda="", pos="50% 40%"):
@@ -551,7 +560,7 @@ def paginas_servicos():
             "<p>O Preparatório IF Sudeste do Quarks prepara para a prova com <b>Física, Química, Português e Matemática</b>, apostila própria e a trilha do IF, em turmas presenciais de até 10 alunos.</p>"
             '<div class="pg-destaques" style="grid-template-columns:repeat(2,minmax(0,1fr));margin-top:22px"><div class="pg-dq"><small>Prova</small><b>45</b><span>questões, 2 pontos cada</span></div>'
             '<div class="pg-dq"><small>Desenvolvimento de Sistemas 2026</small><b>70</b><span>de 90 pontos na ampla</span></div></div>',
-            moldura("/site/img/ft-grupo.webp", "Professores e alunos aprovados do Quarks", "Equipe e aprovados do Quarks", "50% 40%")), olho="9º ano")
+            quadro_professor("/site/img/prof-guilherme.webp", "Prof. Guilherme França", "Matemática e Física")), olho="9º ano")
         + bloco("O que vem no Preparatório IF Sudeste", recursos([
             ("turma", "Turmas pequenas", "Até 10 alunos por turma, presencial em Juiz de Fora."),
             ("livro", "Apostila própria", "Raio-X da prova, questões por nível e gabarito comentado."),
