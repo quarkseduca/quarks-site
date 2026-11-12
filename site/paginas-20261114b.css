@@ -457,3 +457,13 @@
 /* página inicial: bloco presencial com 3 cartões (o PISM passou para o online em 12/11/2026) */
 body.d-g .linha4.l3{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media (max-width:760px){body.d-g .linha4.l3{grid-template-columns:minmax(0,1fr)}}
+/* capa do PISM online: a aula ao vivo (slide + câmera) numa tela 16:9 com órbitas */
+.pg-fplay{aspect-ratio:1/.8;width:min(100%,580px)}
+.pg-fplay .tela16{position:absolute;left:0;right:0;top:13%;aspect-ratio:16/9;border-radius:22px;overflow:hidden;border:6px solid rgba(255,255,255,.9);background:var(--branco);box-shadow:0 34px 70px -26px rgba(30,10,80,.7)}
+.pg-fplay .tela16 img{display:block;width:100%;height:100%;object-fit:cover}
+.pg-fplay .chip.c1{left:auto;right:-3%;bottom:2%;top:auto}
+.pg-fplay .chip.c2{right:auto;left:-3%;top:0}
+.pg-fplay .sim{right:auto;left:42%;bottom:-2%;width:64px;height:64px}
+.pg-fplay .sim img{width:38px;height:38px}
+.pg-dois .pg-fcel{margin:20px auto}
+@media (max-width:760px){.pg-fplay{width:100%}.pg-fplay .chip.c1{right:0}.pg-fplay .chip.c2{left:0}}
