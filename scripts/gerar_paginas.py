@@ -29,8 +29,10 @@ HOJE = datetime.date.today().isoformat()
 ZAP = "5532998057212"
 AVALIAR = "https://g.page/r/CU071YWDNuDYEBM/review"   # link "Pedir avaliações" do Perfil da Empresa no Google (dono, 12/11/2026)
 SIM_V = "25.14"   # mesmo ?v= do simulador na página inicial (index.html)
-CSS = ["/site/site-20261019c.css", "/site/vitrine-20261019.css", "/site/paginas-20261113.css"]   # nome novo a cada mudança (o CDN guarda 7 dias)
+CSS = ["/site/site-20261019c.css", "/site/vitrine-20261019.css", "/site/paginas-20261114.css"]   # nome novo a cada mudança (o CDN guarda 7 dias)
 JS_SITE = "/site/site-20261110.js"
+PISM_INICIO = "07/06/2027"        # Preparatório PISM online (decisão do dono, 06/11/2026)
+PISM_INICIO_CURTO = "07/06"
 JS_PG = "/site/paginas-20261113.js"   # contagem regressiva, linha do tempo, filtros, tabelas no celular, aparição suave
 # pastas de outros sistemas no public_html: nunca podem ser usadas por página do site
 PROIBIDAS = {"familia", "lab", "labaluno", "labprof", "loja", "minhacasa", "portal", "prof", "quarks-backups", "sistema", "site", "privacidade", "termos"}
@@ -79,7 +81,7 @@ TOPO = """<header class="topo" data-sec="site.topo" data-sec-rot="Cabeçalho">
   </div>
 </header>"""
 
-GUIAS = [("/preparatorio-pism/", "Preparatório PISM"), ("/preparatorio-if-sudeste/", "Preparatório IF Sudeste"),
+GUIAS = [("/preparatorio-pism/", "Preparatório PISM online"), ("/preparatorio-if-sudeste/", "Preparatório IF Sudeste"),
          ("/acompanhamento-escolar/", "Acompanhamento Escolar"), ("/aula-particular/", "Aula particular"),
          ("/mentoria-de-estudos/", "Mentoria de estudos"), ("/pism/", "Guia do PISM 2027"),
          ("/gabarito-pism-2027/", "Gabarito do PISM 2027"), ("/nota-de-corte-pism/", "Notas de corte do PISM"),
@@ -239,8 +241,41 @@ def dois(texto, visual, inv=False):
     return f'<div class="pg-dois{" inv" if inv else ""}"><div>{texto}</div><div>{visual}</div></div>'
 
 
+def celular(src, alt, lazy=True, classe=""):
+    """tela real do Portal num celular desenhado em CSS"""
+    return (f'<div class="pg-celular{(" " + classe) if classe else ""}"><img src="{src}" alt="{e(alt)}" width="540" height="1080"'
+            f'{" loading=\"lazy\"" if lazy else " fetchpriority=\"high\""}></div>')
+
+
+def capa_portal(chips=()):
+    """capa com dois celulares do Portal (Minha trilha na frente, teoria atrás), órbitas e selos"""
+    ch = "".join(f'<span class="chip c{i + 1}"><i>{ic(c[0])}</i><span><b>{e(c[1])}</b>{e(c[2])}</span></span>' for i, c in enumerate(chips[:2]))
+    return (f'<div class="pg-fc pg-fcel"><span class="pg-anel" aria-hidden="true"></span><span class="pg-anel b" aria-hidden="true"></span>'
+            + celular("/site/img/trilha-3.webp", "Teoria de Gráficos do movimento no Portal Quarks", classe="tras")
+            + celular("/site/img/trilha-2.webp?v=2", "Minha trilha no Portal Quarks: o edital do PISM, assunto por assunto", lazy=False, classe="frente")
+            + ch + '<span class="sim" aria-hidden="true"><img src="/site/img/symbol-purple-transparent.png" alt="" width="46" height="46"></span></div>')
+
+
+def demo_portal():
+    """animação: no Portal, a teoria, o treino e a questão oficial abrem uma depois da outra (só CSS; parada para quem pede menos movimento)"""
+    passos = [("Teoria", "O que o edital pede e a explicação completa, com gráficos e exemplos."),
+              ("Treino Quarks", "Exercícios do fácil ao nível da prova. A etapa conclui com 10 certas."),
+              ("Prova oficial", "Questões que caíram de verdade no PISM, com a prova e o ano.")]
+    lista = "".join(f'<li class="d{i + 1}"><span class="n">{i + 1}</span><div><b>{e(t)}</b><p>{e(x)}</p></div></li>' for i, (t, x) in enumerate(passos))
+    telas = [("/site/img/trilha-3.webp", "Teoria de Gráficos do movimento"), ("/site/img/trilha-4.webp", "Treino Quarks com a resposta certa e a resolução comentada"),
+             ("/site/img/trilha-5.webp", "Questão oficial do PISM I 2024")]
+    camadas = "".join(f'<img class="l l{i + 1}" src="{s}" alt="{e(a)}" width="540" height="1080" loading="lazy">' for i, (s, a) in enumerate(telas))
+    return ('<div class="pg-demo">'
+            f'<ol class="pg-demo-passos">{lista}</ol>'
+            '<div class="pg-demo-cel"><span class="pg-anel" aria-hidden="true"></span>'
+            '<div class="pg-celular"><div class="tela">'
+            '<img class="base" src="/site/img/trilha-2.webp?v=2" alt="Minha trilha no Portal Quarks" width="540" height="1080" loading="lazy">'
+            f'{camadas}<i class="toque t1" aria-hidden="true"></i><i class="toque t2" aria-hidden="true"></i><i class="toque t3" aria-hidden="true"></i>'
+            '</div></div></div></div>')
+
+
 def escrever(caminho, *, titulo, descricao, h1, lead, corpo, trilha, selo="", ctas="", numeros="", schemas=(), imagem="/site/img/sala-pism.webp",
-             scripts="", prioridade="0.7", sec=None, visual=""):
+             scripts="", prioridade="0.7", sec=None, visual="", og_quadro=""):
     pasta = caminho.strip("/")
     assert pasta.split("/")[0] not in PROIBIDAS, pasta
     mig, mig_schema = migalhas(trilha)
@@ -318,7 +353,7 @@ def escrever(caminho, *, titulo, descricao, h1, lead, corpo, trilha, selo="", ct
     m = re.search(r'class="val">([^<]+)<small>([^<]*)', visual or "")
     OG_LISTA.append({"pasta": pasta, "titulo": h1, "selo": selo, "lead": re.sub(r"<[^>]+>", "", lead),
                      "valor": m.group(1) if m else "", "unidade": m.group(2) if m else "",
-                     "foto": (re.search(r'class="foto"><img src="([^"]+)"', visual or "") or [None, ""])[1]})
+                     "foto": (re.search(r'class="foto"><img src="([^"]+)"', visual or "") or [None, ""])[1], "quadro": og_quadro})
 
 
 OG = {}          # pasta -> nome do arquivo em site/og/ (preenchido em main, se a imagem existir)
@@ -384,9 +419,12 @@ def servico(nome, desc):
     return {"@type": "Service", "name": nome, "description": desc, "provider": ORG, "areaServed": {"@type": "City", "name": "Juiz de Fora"}}
 
 
-def curso(nome, desc):
-    return {"@type": "Course", "name": nome, "description": desc, "provider": ORG, "inLanguage": "pt-BR",
-            "hasCourseInstance": {"@type": "CourseInstance", "courseMode": "onsite", "location": {"@type": "Place", "name": "Quarks Edu", "address": ENDERECO}}}
+def curso(nome, desc, online=False, inicio=None):
+    inst = ({"@type": "CourseInstance", "courseMode": "online", "courseWorkload": "PT4H30M"} if online
+            else {"@type": "CourseInstance", "courseMode": "onsite", "location": {"@type": "Place", "name": "Quarks Edu", "address": ENDERECO}})
+    if inicio:
+        inst["startDate"] = inicio
+    return {"@type": "Course", "name": nome, "description": desc, "provider": ORG, "inLanguage": "pt-BR", "hasCourseInstance": inst}
 
 
 def num(*itens):
@@ -397,31 +435,42 @@ def num(*itens):
 # páginas dos serviços
 # ---------------------------------------------------------------------------------------------------------------
 def paginas_servicos():
-    # Preparatório PISM
+    # Preparatório PISM: só online desde 2027 (decisão do dono, 06/11/2026; início das aulas em 07/06/2027)
     perguntas = [
-        ("O Preparatório PISM do Quarks é presencial?", f"Sim. As aulas são presenciais, na {ENDERECO}, em turmas de até 10 alunos."),
-        ("Para qual módulo do PISM é o preparatório?", "Para os três: PISM I (1º ano do ensino médio), PISM II (2º ano) e PISM III (3º ano). A trilha de estudos segue o conteúdo de cada módulo."),
-        ("Quando é a prova do PISM 2027?", 'As provas de todos os módulos são em 05 e 06/12/2026, e os gabaritos saem em 07/12/2026, segundo o Edital 10/2026 da Copese/UFJF. Veja o <a href="/pism/">guia do PISM 2027</a>.'),
+        ("O Preparatório PISM do Quarks é presencial?", "Não. O Preparatório PISM do Quarks é <b>só online</b>: aulas ao vivo, em turmas reduzidas, com o professor junto e todas as disciplinas no Portal Quarks. "
+         'Quem quer estudar para o PISM presencialmente, em Juiz de Fora, pode fazer o <a href="/acompanhamento-escolar/">Acompanhamento Escolar</a>.'),
+        ("Quando começam as aulas?", f"Em <b>{PISM_INICIO}</b>, e seguem até as provas do PISM de dezembro de 2027."),
+        ("Para qual módulo é o preparatório?", "Para o PISM I (1º ano do ensino médio) e o PISM II (2º ano), com Física, Química, Matemática e Português ao vivo. A trilha de estudos segue o conteúdo de cada módulo."),
+        ("Como é a aula online?", "Ao vivo, com o professor explicando e respondendo às perguntas na hora. A turma é reduzida, então o professor conhece cada aluno. "
+         "Entre uma aula e outra, o aluno estuda pelo Portal Quarks: teoria, treino e questões oficiais de cada assunto."),
         ("Como sei quanto preciso tirar para o meu curso?", 'Veja a <a href="/nota-de-corte-pism/">nota de corte de cada curso da UFJF</a> e use o <a href="/simulador-pism/">simulador do PISM</a>, feitos com as notas oficiais da UFJF.'),
         ("Os pais acompanham o estudo?", "Sim. No portal das famílias os pais veem a presença, as tarefas, os simulados e a trilha, com cada número explicado."),
     ]
     faq, fs = faq_html(perguntas)
+    portal = ('<div class="pg-cels">'
+              + "".join(f'<figure>{celular(s, a)}<figcaption><b>{e(t)}</b>{e(x)}</figcaption></figure>' for s, a, t, x in [
+                  ("/site/img/trilha-1.webp", "Diagnóstico de entrada no Portal Quarks", "Diagnóstico", "Algumas questões mostram onde o aluno está."),
+                  ("/site/img/trilha-2.webp?v=2", "Minha trilha: o edital do PISM II, assunto por assunto", "Minha trilha", "O edital do PISM, assunto por assunto."),
+                  ("/site/img/trilha-6.webp?v=2", "Plano do dia no Portal Quarks, com teoria, treino e prova oficial de cada disciplina", "Plano do dia", "O que estudar hoje, disciplina por disciplina."),
+                  ("/site/img/trilha-7.webp?v=2", "Portal das famílias: a semana do aluno numa frase", "Para os pais", "A semana do filho numa frase."),
+              ]) + "</div>")
     corpo = (
-        bloco("O PISM se ganha nos três anos", dois(
+        bloco("Online, ao vivo e perto do professor", recursos([
+            ("chat", "Aula ao vivo", "O professor explica, resolve e responde às perguntas na hora, como numa sala, de onde o aluno estiver."),
+            ("turma", "Turmas reduzidas", "Poucos alunos por turma, para o professor conhecer cada um e acompanhar de perto."),
+            ("pessoa", "Interação com o professor", "Dúvida não fica para depois: pergunte durante a aula e receba retorno sobre o seu progresso."),
+            ("livro", "Todas as disciplinas no Portal", "Física, Química, Matemática e Português, com teoria, treino e questões oficiais de cada assunto."),
+            ("rota", "Trilha do edital", "Os conteúdos do PISM I e do PISM II na ordem certa. A coordenação ajusta para cada aluno."),
+            ("familia", "Família junto", "Portal das famílias com presença, tarefas, simulados e a trilha."),
+        ]), olho="Como funciona")
+        + bloco("Teoria, treino e prova oficial, um depois do outro", demo_portal(), "pg-lilas", olho="Veja o Portal por dentro", id_="portal")
+        + bloco("Tudo do PISM num lugar só", "<p style=\"max-width:62ch;margin-bottom:30px\">Telas reais do Portal Quarks, com uma aluna de exemplo. Funciona no computador e no celular.</p>" + portal, olho="Portal Quarks")
+        + bloco("O PISM se ganha nos três anos", dois(
             "<p>O PISM é o vestibular seriado da UFJF: uma prova por ano do ensino médio, e a nota final soma os três módulos, com peso maior a cada ano. "
             "Quem chega ao PISM III com o I e o II bem feitos entra na disputa do curso que quer.</p>"
-            "<p>Por isso o Preparatório PISM do Quarks acompanha o aluno <b>o ano todo</b>, com foco no que mais cai na UFJF, e não só na véspera da prova: "
-            "turmas presenciais de <b>até 10 alunos</b>, apostila própria com o raio-X da prova, laboratório de simulações e a trilha do edital no Portal Quarks.</p>"
+            "<p>Por isso o Preparatório PISM online do Quarks começa cedo, no PISM I e no PISM II, com foco no que mais cai na UFJF e a trilha do edital no Portal Quarks.</p>"
             '<div class="pg-pesos" style="margin-top:22px" role="img" aria-label="Peso dos módulos na nota final: PISM I até 240, PISM II até 360, PISM III até 700 pontos"><div class="m1"><b>240</b><span>PISM I</span></div><div class="m2"><b>360</b><span>PISM II</span></div><div class="m3"><b>700</b><span>PISM III · total 1.300</span></div></div>',
-            moldura("/site/img/ft-professores-alunas.webp", "Professores do Quarks com duas alunas aprovadas", "Professores e aprovadas do Quarks", "50% 30%")), olho="Por que o ano todo")
-        + bloco("O que vem no Preparatório PISM", recursos([
-            ("turma", "Turmas pequenas", "Até 10 alunos por turma, para o professor conhecer cada um e tirar dúvida na hora."),
-            ("livro", "Apostila própria", "Raio-X da prova, mapa de incidência, questões por nível e gabarito comentado, para o PISM I, II e III."),
-            ("rota", "Trilha do edital", "Os conteúdos do módulo na ordem certa, com videoaula, teoria, treino e questões oficiais."),
-            ("frasco", "Laboratório", "Simulações de Física, Química, Matemática e Português por etapa do PISM."),
-            ("grafico", "Notas de verdade", "O simulador e as notas de corte do Quarks usam as notas oficiais da UFJF desde 2019."),
-            ("familia", "Família junto", "Portal das famílias com presença, tarefas, simulados e a trilha."),
-        ]), olho="Tudo incluído")
+            moldura("/site/img/ft-professores-alunas.webp", "Professores do Quarks com duas alunas aprovadas", "Professores e aprovadas do Quarks", "50% 30%")), olho="Por que começar cedo")
         + bloco("A trilha de estudos, passo a passo", "<p style=\"max-width:62ch;margin-bottom:26px\">Vem junto com o Preparatório PISM. É montada pelo edital da prova e ajustada pela coordenação para cada aluno.</p>" + ROTA, "pg-lilas", olho="Portal Quarks")
         + faixa_aprovados(filtro="UFJF")
         + bloco("Quanto o seu curso pede", '<div class="pg-destaques">'
@@ -430,19 +479,19 @@ def paginas_servicos():
                 '<a class="pg-dq" href="/nota-de-corte-pism/direito-noturno/"><small>Direito (noturno)</small><b>806,75</b><span>pontos no PISM 2026 →</span></a></div>'
                 '<p style="margin-top:18px">Ampla concorrência, de 1.300 possíveis. Veja <a href="/nota-de-corte-pism/">a nota de corte de todos os cursos de Juiz de Fora</a> ou faça a conta no <a href="/simulador-pism/">simulador</a>.</p>'
                 '<p class="pg-fonte">Fonte: UFJF/Copese, resultado final do PISM III.</p>', olho="Notas de corte")
-        + faq + visita()
-        + cta("Comece o Preparatório PISM", "A coordenação do Quarks responde pelo WhatsApp com as turmas e os próximos passos.", "Quero saber do Preparatório PISM",
-              "Olá! Quero saber do Preparatório PISM do Quarks.", ("Ver notas de corte", "/nota-de-corte-pism/")))
-    escrever("preparatorio-pism", titulo="Preparatório PISM em Juiz de Fora | Quarks Edu", sec="pgpism",
-             descricao="Preparatório PISM presencial em Juiz de Fora, para os módulos I, II e III da UFJF: turmas de até 10 alunos, apostila própria, trilha do edital e notas de corte oficiais.",
-             h1="Preparatório PISM em Juiz de Fora", selo="Presencial · até 10 por turma",
-             lead="O ano todo ao lado do aluno, com foco no que mais cai na UFJF, nos três módulos do PISM.",
-             ctas=botoes("Quero saber mais", "Olá! Quero saber do Preparatório PISM do Quarks.", ("Ver notas de corte", "/nota-de-corte-pism/")),
-             numeros=num(("200+", "aprovados"), ("10", "alunos, no máximo, por turma"), ("3", "módulos: PISM I, II e III")),
-             visual=capa_foto("/site/img/ft-aprovados-pism.webp", "Alunos do Quarks aprovados na UFJF e na UFRJ, com o curso escrito no braço", "55% 30%",
-                              [("estrela", "200+ aprovados", "UFJF, UFRJ e IF Sudeste"), ("turma", "Até 10 alunos", "por turma, presencial")]),
-             corpo=corpo, trilha=[("Preparatório PISM", "/preparatorio-pism/")], imagem="/site/img/ft-aprovados-pism.webp", prioridade="0.9",
-             schemas=[curso("Preparatório PISM (UFJF)", "Preparatório presencial em Juiz de Fora para os módulos I, II e III do PISM da UFJF, em turmas de até 10 alunos."), fs])
+        + faq
+        + cta("Garanta a vaga no PISM online", f"As aulas começam em {PISM_INICIO}, em turmas reduzidas. A coordenação do Quarks responde pelo WhatsApp com os próximos passos.", "Quero saber do PISM online",
+              "Olá! Quero saber do Preparatório PISM online do Quarks.", ("Ver notas de corte", "/nota-de-corte-pism/")))
+    escrever("preparatorio-pism", titulo="Preparatório PISM online, ao vivo | Quarks Edu", sec="pgpism",
+             descricao=f"Preparatório PISM online do Quarks: aulas ao vivo de Física, Química, Matemática e Português para o PISM I e II, turmas reduzidas, interação com o professor e todas as disciplinas no Portal Quarks. Início em {PISM_INICIO}.",
+             h1="Preparatório PISM online", selo="Online · ao vivo · turmas reduzidas",
+             lead=f"Aulas ao vivo para o PISM I e o PISM II, com o professor junto e todas as disciplinas no Portal Quarks. Começa em <b>{PISM_INICIO}</b>.",
+             ctas=botoes("Quero saber mais", "Olá! Quero saber do Preparatório PISM online do Quarks.", ("Ver como é o Portal", "#portal")),
+             numeros=num((PISM_INICIO_CURTO, "início das aulas"), ("4", "disciplinas ao vivo"), ("200+", "aprovados do Quarks")),
+             visual=capa_portal([("chat", "Ao vivo", "com o professor"), ("calendario", "Início", PISM_INICIO)]),
+             corpo=corpo, trilha=[("Preparatório PISM", "/preparatorio-pism/")], imagem="/site/img/portal-pism.webp", prioridade="0.9",
+             og_quadro="/site/img/portal-pism.webp",
+             schemas=[curso("Preparatório PISM online (UFJF)", f"Preparatório online, com aulas ao vivo, para o PISM I e o PISM II da UFJF: Física, Química, Matemática e Português, turmas reduzidas e trilha do edital no Portal Quarks. Início em {PISM_INICIO}.", online=True, inicio="2027-06-07"), fs])
 
     # Preparatório IF Sudeste
     perguntas = [
@@ -486,6 +535,7 @@ def paginas_servicos():
         ("Como funciona o Acompanhamento Escolar do Quarks?", "Aulas de 1h30 de Física, Química, Matemática e Português, com no máximo 2 alunos por turma e o mesmo horário o ano todo. O professor acompanha a matéria da escola e já prepara para o PISM e o IF Sudeste."),
         ("Quais são os horários?", "De segunda a sexta: 14h às 15h30, 15h30 às 17h, 17h15 às 18h45 e 18h45 às 20h15. Sábado: 9h às 10h30 e 10h30 às 12h. As vagas são poucas por módulo."),
         ("Para quais anos é o Acompanhamento?", "Do 6º ano do ensino fundamental ao 3º ano do ensino médio."),
+        ("Quero estudar para o PISM presencialmente. Posso?", 'Sim, pelo Acompanhamento Escolar: no ensino médio, o professor acompanha a matéria da escola e já prepara para o PISM. O <a href="/preparatorio-pism/">Preparatório PISM</a> do Quarks é só online, com aulas ao vivo.'),
         ("Os pais acompanham?", "Sim. No portal das famílias você vê a presença, as tarefas, os simulados e a trilha, com cada número explicado."),
         ("Tem resultado?", "Todos os alunos que fizeram o Acompanhamento do Quarks ao longo de todo o ensino médio foram aprovados."),
     ]
@@ -589,7 +639,7 @@ def pagina_aprovados():
              + bloco("Qual é o seu curso?", '<div class="pg-destaques"><a class="pg-dq" href="/nota-de-corte-pism/"><small>UFJF</small><b>72 cursos</b><span>notas de corte do PISM →</span></a>'
                      '<a class="pg-dq" href="/nota-de-corte-if-sudeste/"><small>IF Sudeste MG</small><b>7 cursos</b><span>notas de corte do IF →</span></a>'
                      '<a class="pg-dq" href="/simulador-pism/"><small>Simulador</small><b>Sua nota</b><span>quanto falta para o curso →</span></a></div>', olho="Agora é você")
-             + cta("O próximo pode ser você", "Conheça o Preparatório PISM, o Preparatório IF Sudeste e o Acompanhamento Escolar.", "Falar com o Quarks", "Olá! Vi os aprovados do Quarks e quero saber como estudar aí.",
+             + cta("O próximo pode ser você", "Conheça o Preparatório PISM online, o Preparatório IF Sudeste e o Acompanhamento Escolar.", "Falar com o Quarks", "Olá! Vi os aprovados do Quarks e quero saber como estudar aí.",
                    ("Preparatório PISM", "/preparatorio-pism/")))
     escrever("aprovados", titulo="Aprovados do Quarks: UFJF, UFRJ e IF Sudeste MG | Quarks Edu",
              descricao="Alunos do Quarks Edu aprovados na UFJF (PISM), na UFRJ e no IF Sudeste MG. Mais de 200 aprovados em Juiz de Fora.",
@@ -676,8 +726,8 @@ def paginas_pism():
                 "Quem está num grupo de cotas concorre primeiro na ampla. O candidato do PISM também pode concorrer pelo Sisu.</p>" + FONTE_EDITAL, olho="Cotas", tx=True)
         + bloco("Quanto cada curso pede", f'<div class="pg-destaques">{destaques}</div><p style="margin-top:18px"><a class="pg-mais" href="/nota-de-corte-pism/">Ver a nota de corte dos 72 cursos de Juiz de Fora →</a></p>', "pg-lilas", olho="Notas de corte")
         + faq
-        + cta("Prepare-se para o PISM com o Quarks", "Preparatório presencial em Juiz de Fora para os três módulos, em turmas de até 10 alunos.", "Quero saber do Preparatório PISM",
-              "Olá! Li o guia do PISM e quero saber do Preparatório PISM do Quarks.", ("Ver o Preparatório PISM", "/preparatorio-pism/")))
+        + cta("Prepare-se para o PISM com o Quarks", f"Preparatório PISM online, com aulas ao vivo, turmas reduzidas e todas as disciplinas no Portal Quarks. Início em {PISM_INICIO}.", "Quero saber do Preparatório PISM",
+              "Olá! Li o guia do PISM e quero saber do Preparatório PISM online do Quarks.", ("Ver o Preparatório PISM", "/preparatorio-pism/")))
     conta = capa_contagem("2026-12-05T13:00:00-03:00", "Falta para o PISM 2027", "05 e 06/12", "Provas dos três módulos. Gabaritos em 07/12.",
                           '<div class="rot">PISM 2027</div><div class="val" style="font-size:40px">Provas feitas</div><div class="sub">Os gabaritos saem em 07/12 e o resultado do módulo III em 04/02/2027.</div>',
                           '<div class="acao"><a class="btn am" href="#datas">Ver todas as datas</a></div>')
@@ -708,8 +758,8 @@ def paginas_pism():
             ("grafico", "3. Compare com o curso", 'Leve a nota para a escala da UFJF no <a href="/simulador-pism/">simulador</a> e compare com a <a href="/nota-de-corte-pism/">nota de corte</a>.'),
         ]), olho="Depois da prova")
         + faq
-        + cta("Próximo módulo começa agora", "Quem faz o PISM I ou o PISM II em dezembro já pode começar o próximo módulo com o Quarks, presencial em Juiz de Fora.", "Quero saber do Preparatório PISM",
-              "Olá! Fiz o PISM e quero saber do Preparatório PISM do Quarks.", ("Guia do PISM 2027", "/pism/")))
+        + cta("O próximo módulo com o Quarks", f"O Preparatório PISM online do Quarks tem turmas de PISM I e PISM II, com aulas ao vivo e o Portal Quarks. Início em {PISM_INICIO}.", "Quero saber do Preparatório PISM",
+              "Olá! Fiz o PISM e quero saber do Preparatório PISM online do Quarks.", ("Guia do PISM 2027", "/pism/")))
     conta = capa_contagem("2026-12-07T00:00:00-03:00", "Falta para o gabarito", "07/12/2026", "A Copese publica os gabaritos no dia seguinte às provas.",
                           f'<div class="rot">Gabarito do PISM 2027</div><div class="val" style="font-size:40px">Já saiu</div><div class="sub">Confira no site oficial da Copese/UFJF.</div>'
                           f'<div class="acao"><a class="btn am" href="{COPESE}" target="_blank" rel="noopener">Ver o gabarito na Copese</a></div>')
@@ -860,8 +910,8 @@ def paginas_notas(gestao):
             + bloco("Por grupo de cotas", "<p style=\"max-width:80ch;margin-bottom:18px\">Ponto de corte de cada grupo, ano a ano; quanto mais escuro, mais alto. Desde o PISM 2025 os grupos mudaram (Lei 14.723/2023 e Resolução CONSU 120/2024): a renda passou de até 1,5 para até 1 salário mínimo por pessoa, e surgiram os grupos G a J. As letras de antes e de depois não são exatamente iguais.</p>" + tab_grupos + fonte, olho="Cotas")
             + faq
             + (bloco(f"Outros cursos de {e(c['area'])}", '<ul class="pg-links">' + "".join(f'<li><a href="/nota-de-corte-pism/{y["slug"]}/">{e(y["nome"])}</a></li>' for y in mesmos) + '</ul><p style="margin-top:16px"><a class="pg-mais" href="/nota-de-corte-pism/">Ver todos os 72 cursos →</a></p>', "pg-lilas", olho="Compare") if mesmos else "")
-            + cta(f"Rumo a {curto}", "O Preparatório PISM do Quarks acompanha os três módulos, presencial em Juiz de Fora, em turmas de até 10 alunos.", "Quero saber do Preparatório PISM",
-                  f"Olá! Vi a nota de corte de {nome} no site e quero saber do Preparatório PISM do Quarks.", ("Ver o Preparatório PISM", "/preparatorio-pism/")))
+            + cta(f"Rumo a {curto}", f"Preparatório PISM online do Quarks: aulas ao vivo, turmas reduzidas e todas as disciplinas no Portal Quarks. Início em {PISM_INICIO}.", "Quero saber do Preparatório PISM",
+                  f"Olá! Vi a nota de corte de {nome} no site e quero saber do Preparatório PISM online do Quarks.", ("Ver o Preparatório PISM", "/preparatorio-pism/")))
         dataset = {"@type": "Dataset", "name": f"Notas de corte de {nome} no PISM da UFJF", "description": desc + " Dados agregados do resultado final do PISM III (UFJF/Copese), sem nome de candidatos.",
                    "creator": ORG, "isBasedOn": COPESE, "temporalCoverage": f"{min(anos)}/{max(anos)}", "spatialCoverage": {"@type": "Place", "name": "Juiz de Fora, MG"},
                    "inLanguage": "pt-BR", "isAccessibleForFree": True, "dateModified": HOJE}
@@ -908,8 +958,8 @@ def paginas_notas(gestao):
         + bloco(f"Nota de corte de todos os cursos ({len(cursos)})", "<p style=\"margin-bottom:18px\">Procure pelo nome ou escolha a área. Clique no curso para ver todos os anos, cada grupo de cotas, as vagas e quanto tiraram os aprovados em cada módulo.</p>" + tabela_ + fonte, "pg-lilas", olho="Todos os cursos", id_="cursos")
         + bloco("Simule a sua nota", '<p>Digite as suas notas e veja onde você estaria entre quem fez o PISM e quanto falta para o curso que você quer.</p><p style="margin-top:18px"><a class="btn am" href="/simulador-pism/">Abrir o simulador</a></p>', "pg-roxo", olho="Simulador", tx=True)
         + faq
-        + cta("Do corte à aprovação", "O Preparatório PISM do Quarks acompanha os três módulos, presencial em Juiz de Fora.", "Quero saber do Preparatório PISM",
-              "Olá! Vi as notas de corte do PISM no site e quero saber do Preparatório PISM do Quarks.", ("Guia do PISM 2027", "/pism/")))
+        + cta("Do corte à aprovação", f"Preparatório PISM online do Quarks, com aulas ao vivo e a trilha do edital no Portal Quarks. Início em {PISM_INICIO}.", "Quero saber do Preparatório PISM",
+              "Olá! Vi as notas de corte do PISM no site e quero saber do Preparatório PISM online do Quarks.", ("Guia do PISM 2027", "/pism/")))
     escrever("nota-de-corte-pism", titulo=f"Nota de corte do PISM {ano_max} (UFJF): todos os cursos de Juiz de Fora | Quarks Edu",
              descricao=f"Nota de corte do PISM da UFJF em todos os {len(cursos)} cursos de Juiz de Fora, de {min(anos_todos)} a {ano_max}, na ampla e em cada grupo de cotas, com as notas oficiais da Copese.",
              h1=f"Nota de corte do PISM: todos os cursos da UFJF", selo=f"PISM {min(anos_todos)} a {ano_max} · notas oficiais",
@@ -973,8 +1023,12 @@ def paginas_if(gestao):
     barras_if.sort(key=lambda t: -t[1])
     barras = "".join(f'<a class="pg-barra" href="#{e(c["id"])}" style="display:block;text-decoration:none;color:inherit"><div class="top"><span><b>{e(c["curso"])}</b></span><span><b>{br(v)}</b> de 90 · {int(round(v / 2))} acertos{"" if u == max(anos) else f" ({u})"}</span></div>'
                      f'<div class="trilho"><span class="med" style="width:{v / 90 * 100:.1f}%"></span></div></a>' for c, v, u in barras_if)
-    corpo = (bloco(f"Ampla concorrência em {max(anos)}", f'<div class="pg-grafcard" style="padding:24px"><div class="pg-barras">{barras}</div></div><p class="pg-fonte">Clique no curso para ver todos os anos e as modalidades de cotas.</p>', olho="Ranking")
-             + bloco("Resumo: ampla concorrência, ano a ano", tabela(f'<table><thead><tr><th>Curso</th>{cab}<th>Média 2 últimos anos</th><th>Acertos (de 45)</th></tr></thead><tbody>{"".join(resumo)}</tbody></table>') + fonte, "pg-lilas", olho="Todos os anos")
+    # ranking do último ano e resumo ano a ano lado a lado (dono, 12/11/2026: "falam quase a mesma língua"); no celular, um abaixo do outro
+    corpo = (bloco("Ampla concorrência: o ranking e a série", '<div class="pg-par">'
+                   f'<div><h3>Ranking de {max(anos)}</h3><div class="pg-grafcard"><div class="pg-barras">{barras}</div></div>'
+                   '<p class="pg-fonte">Clique no curso para ver todos os anos e as modalidades de cotas.</p></div>'
+                   '<div><h3>Ano a ano</h3>' + tabela(f'<table><thead><tr><th>Curso</th>{cab}<th>Média 2 anos</th><th>Acertos (de 45)</th></tr></thead><tbody>{"".join(resumo)}</tbody></table>') + '</div>'
+                   '</div>' + fonte, olho="Ranking e todos os anos")
              + "".join(blocos)
              + bloco("Simule a sua nota", '<p>No <a href="/simulador-pism/">simulador</a>, aba <b>IF Sudeste MG</b>, digite a sua nota e veja quantos acertos faltam para o curso que você quer.</p>', "pg-lilas")
              + faq
@@ -1018,7 +1072,7 @@ def pagina_simulador():
              + bloco("Como a nota do PISM é calculada", '<div class="pg-pesos" role="img" aria-label="PISM I até 240, PISM II até 360, PISM III até 700, total 1.300"><div class="m1"><b>240</b><span>PISM I</span></div><div class="m2"><b>360</b><span>PISM II</span></div><div class="m3"><b>700</b><span>PISM III · total 1.300</span></div></div>'
                      '<p style="margin-top:20px;max-width:72ch">Nota final = PISM I × 0,20 + PISM II × 0,30 + PISM III × 0,50 (Resolução CONGRAD 340/2026). A UFJF publica com peso 2, 3 e 5: até 240, 360 e 700 pontos, total de 1.300. Veja o <a href="/pism/">guia do PISM 2027</a> e a <a href="/nota-de-corte-pism/">nota de corte de cada curso</a>.</p>', olho="Pesos")
              + faq
-             + cta("Quero chegar lá", "O Quarks monta a trilha até a nota do seu curso, presencial em Juiz de Fora.", "Quero chegar lá com o Quarks",
+             + cta("Quero chegar lá", "O Quarks monta a trilha até a nota do seu curso, no Preparatório PISM online, com aulas ao vivo.", "Quero chegar lá com o Quarks",
                    "Olá! Fiz o simulador do site e quero saber como estudar no Quarks.", ("Preparatório PISM", "/preparatorio-pism/")))
     escrever("simulador-pism", titulo="Simulador do PISM (UFJF) e do IF Sudeste: quanto falta para o seu curso | Quarks Edu",
              descricao="Simulador do PISM da UFJF e do IF Sudeste MG com as notas oficiais desde 2016: veja onde você estaria entre os candidatos e quanto precisa em cada módulo para o seu curso.",

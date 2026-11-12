@@ -381,3 +381,79 @@
   .pg-tab table{font-size:14px}
   .pg-tab th,.pg-tab td{padding:10px 11px}
 }
+
+/* ===== 12/11/2026: Preparatório PISM online (celulares do Portal, animação teoria → treino → oficial) e blocos lado a lado ===== */
+.pg-celular{position:relative;aspect-ratio:540/1080;background:var(--carvao);border-radius:34px;padding:7px;box-shadow:0 30px 60px -24px rgba(30,10,80,.55)}
+.pg-celular > img,.pg-celular .tela{display:block;width:100%;height:100%;border-radius:28px;overflow:hidden;object-fit:cover;object-position:top}
+.pg-fcel .pg-celular{position:absolute}
+.pg-fcel .pg-celular.tras{width:37%;left:8%;top:15%;transform:rotate(-8deg);opacity:.92}
+.pg-fcel .pg-celular.frente{width:43%;left:41%;top:2%;transform:rotate(4deg)}
+.pg-fcel .chip.c1{left:-4%;bottom:10%;z-index:2}
+.pg-fcel .chip.c2{right:-8%;top:44%;z-index:2}
+.pg-fcel .sim{z-index:2}
+
+.pg-demo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,320px);gap:64px;align-items:center}
+.pg-demo-passos{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.pg-demo-passos li{display:flex;gap:16px;align-items:flex-start;background:var(--branco);border-radius:20px;padding:18px 20px;border:1.5px solid var(--linha)}
+.pg-demo-passos .n{flex:0 0 38px;height:38px;border-radius:50%;background:var(--lilas);color:var(--roxo);display:grid;place-items:center;font-family:var(--f-titulo);font-weight:800;font-size:17px}
+.pg-demo-passos b{font-family:var(--f-titulo);font-size:19px;color:var(--roxo-tinta)}
+.pg-demo-passos p{margin:4px 0 0;font-size:15px;line-height:1.5}
+.pg-demo-cel{position:relative;justify-self:center;width:min(100%,290px)}
+.pg-demo-cel .pg-anel{position:absolute;inset:-6% -22%;border-radius:50%;border:1.5px dashed rgba(101,81,209,.4);transform:rotate(-12deg)}
+.pg-demo .tela{position:relative}
+.pg-demo .tela img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
+.pg-demo .tela .l1,.pg-demo .tela .base{visibility:visible}
+.pg-demo .tela .l2,.pg-demo .tela .l3{visibility:hidden}
+.pg-demo .toque{position:absolute;width:38px;height:38px;margin:-19px 0 0 -19px;border-radius:50%;background:rgba(101,81,209,.35);border:2px solid var(--branco);box-shadow:0 0 0 6px rgba(101,81,209,.18);opacity:0;pointer-events:none;z-index:3}
+.pg-demo .toque.t1{left:50%;top:42%}.pg-demo .toque.t2{left:42%;top:20%}.pg-demo .toque.t3{left:80%;top:20%}
+@media (prefers-reduced-motion:no-preference){
+  .pg-demo .tela .l2,.pg-demo .tela .l3{visibility:visible}
+  .pg-demo .tela .l1{animation:pgL1 12s infinite}
+  .pg-demo .tela .l2{animation:pgL2 12s infinite}
+  .pg-demo .tela .l3{animation:pgL3 12s infinite}
+  .pg-demo .toque{animation:pgToque 12s infinite}
+  .pg-demo .toque.t2{animation-delay:3.36s}.pg-demo .toque.t3{animation-delay:6.72s}
+  .pg-demo-passos li{animation:pgPasso 12s infinite;opacity:.5}
+  .pg-demo-passos .n{animation:pgPasson 12s infinite}
+  .pg-demo-passos .d1,.pg-demo-passos .d1 .n{animation-delay:.9s}
+  .pg-demo-passos .d2,.pg-demo-passos .d2 .n{animation-delay:4.26s}
+  .pg-demo-passos .d3,.pg-demo-passos .d3 .n{animation-delay:7.62s}
+}
+@keyframes pgL1{0%,10%{clip-path:circle(0% at 50% 42%);opacity:1}17%,93%{clip-path:circle(150% at 50% 42%);opacity:1}98%,100%{clip-path:circle(150% at 50% 42%);opacity:0}}
+@keyframes pgL2{0%,38%{clip-path:circle(0% at 42% 20%);opacity:1}45%,93%{clip-path:circle(150% at 42% 20%);opacity:1}98%,100%{clip-path:circle(150% at 42% 20%);opacity:0}}
+@keyframes pgL3{0%,66%{clip-path:circle(0% at 80% 20%);opacity:1}73%,93%{clip-path:circle(150% at 80% 20%);opacity:1}98%,100%{clip-path:circle(150% at 80% 20%);opacity:0}}
+@keyframes pgToque{0%,4%{opacity:0;transform:scale(.4)}7%{opacity:1;transform:scale(1)}11%,100%{opacity:0;transform:scale(1.6)}}
+@keyframes pgPasso{0%{opacity:.5;border-color:var(--linha);transform:none}3%,26%{opacity:1;border-color:var(--roxo);transform:translateX(8px);box-shadow:0 18px 34px -20px rgba(60,30,140,.45)}29%,100%{opacity:.5;border-color:var(--linha);transform:none;box-shadow:none}}
+@keyframes pgPasson{0%{background:var(--lilas);color:var(--roxo)}3%,26%{background:var(--roxo);color:var(--branco)}29%,100%{background:var(--lilas);color:var(--roxo)}}
+
+.pg-cels{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px}
+.pg-cels figure{margin:0;text-align:center}
+.pg-cels .pg-celular{max-width:210px;margin:0 auto 16px}
+.pg-cels figcaption{font-size:15px;line-height:1.45}
+.pg-cels figcaption b{display:block;font-family:var(--f-titulo);font-size:18px;color:var(--roxo-tinta)}
+
+.pg-par{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:32px;align-items:start}
+.pg-par h3{font-family:var(--f-titulo);font-size:20px;color:var(--roxo-tinta);margin:0 0 14px}
+.pg-par .pg-grafcard{padding:20px}
+.pg-par .pg-tab table{min-width:0;font-size:14px}
+.pg-par .pg-tab th,.pg-par .pg-tab td{padding:10px 8px}
+.pg-par .pg-tab th{white-space:normal;line-height:1.25;vertical-align:bottom}
+.pg-par .pg-tab td:first-child{min-width:120px}
+
+@media (max-width:980px){
+  .pg-demo{grid-template-columns:minmax(0,1fr) minmax(0,260px);gap:36px}
+  .pg-cels{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pg-par{grid-template-columns:minmax(0,1fr);gap:30px}
+  .pg-par .pg-tab table{min-width:520px}
+}
+@media (max-width:760px){
+  .pg-demo{grid-template-columns:minmax(0,1fr);gap:30px}
+  .pg-demo-cel{order:-1;width:min(70%,250px)}
+  .pg-demo-passos li{padding:14px 16px}
+  @keyframes pgPasso{0%{opacity:.5;border-color:var(--linha)}3%,26%{opacity:1;border-color:var(--roxo)}29%,100%{opacity:.5;border-color:var(--linha)}}
+  .pg-cels{gap:20px 14px}
+  .pg-fcel .chip.c2{right:-2%}
+}
+/* página inicial: bloco presencial com 3 cartões (o PISM passou para o online em 12/11/2026) */
+body.d-g .linha4.l3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:760px){body.d-g .linha4.l3{grid-template-columns:minmax(0,1fr)}}

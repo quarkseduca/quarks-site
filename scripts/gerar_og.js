@@ -36,6 +36,7 @@ p{font-size:25px;line-height:1.4;opacity:.92;margin-top:20px;display:-webkit-box
   for (const x of lista) {
     const vis = x.valor
       ? `<div class="vis" style="top:150px"><div class="card"><small>Nota de corte</small><b>${esc(x.valor)}</b><span>${esc(x.unidade)}</span></div><div class="sim" style="top:-40px;right:-30px;bottom:auto"><img src="${url('site/img/symbol-purple-transparent.png')}"></div></div>`
+      : x.quadro ? `<div class="vis" style="display:grid;place-items:center;width:470px;right:40px"><div style="width:470px;height:294px;border-radius:28px;overflow:hidden;box-shadow:0 30px 60px -20px rgba(30,10,80,.6)"><img style="width:100%;height:100%;object-fit:cover" src="${url(x.quadro)}"></div><div class="sim" style="right:-30px;bottom:20px"><img src="${url('site/img/symbol-purple-transparent.png')}"></div></div>`
       : x.foto ? `<div class="vis"><div class="foto"><img src="${url(x.foto)}"></div><div class="sim"><img src="${url('site/img/symbol-purple-transparent.png')}"></div></div>`
       : `<div class="vis" style="display:grid;place-items:center"><div class="sim" style="position:static;width:260px;height:260px"><img style="width:160px" src="${url('site/img/symbol-purple-transparent.png')}"></div></div>`;
     const html = `<!doctype html><meta charset="utf-8"><style>${css}</style><i class="orb"></i><i class="orb b"></i>
