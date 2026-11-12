@@ -23,8 +23,9 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://www.quarksedu.com.br"
 HOJE = datetime.date.today().isoformat()
 ZAP = "5532998057212"
+AVALIAR = "https://g.page/r/CU071YWDNuDYEBM/review"   # link "Pedir avaliações" do Perfil da Empresa no Google (dono, 12/11/2026)
 SIM_V = "25.14"   # mesmo ?v= do simulador na página inicial (index.html)
-CSS = ["/site/site-20261019c.css", "/site/vitrine-20261019.css", "/site/paginas-20261111.css"]
+CSS = ["/site/site-20261019c.css", "/site/vitrine-20261019.css", "/site/paginas-20261112.css"]
 JS_SITE = "/site/site-20261110.js"
 # pastas de outros sistemas no public_html: nunca podem ser usadas por página do site
 PROIBIDAS = {"familia", "lab", "labaluno", "labprof", "loja", "minhacasa", "portal", "prof", "quarks-backups", "sistema", "site", "privacidade", "termos"}
@@ -90,7 +91,7 @@ RODAPE = """<footer class="rod2" data-sec="site.rod" data-sec-rot="Rodapé">
     <div class="r2-marca"><img src="/site/img/logo-white-text.png" alt="Quarks" width="160" height="30" loading="lazy"><p data-c="site.rod.t1">Cursinho em Juiz de Fora para o PISM, o IF Sudeste e o reforço escolar. Aprender é conquistar.</p></div>
     <div class="r2-col"><b data-c="site.rod.t2">O Quarks</b><ul data-lista="site.rod.quarks"><li data-item><a href="/#presencial" data-f="f0" data-f-href="f0_link">Presencial</a></li><li data-item><a href="/#trilha" data-f="f0" data-f-href="f0_link">Trilha de estudos</a></li><li data-item><a href="/#aprovados" data-f="f0" data-f-href="f0_link">Aprovados</a></li><li data-item><a href="/#visite" data-f="f0" data-f-href="f0_link">Visite a unidade</a></li></ul></div>
     <div class="r2-col"><b data-c="site.rod.t3">Loja</b><ul data-lista="site.rod.loja"><li data-item><a href="https://loja.quarksedu.com.br/apostilas" data-f="f0" data-f-href="f0_link">Apostilas</a></li><li data-item><a href="https://loja.quarksedu.com.br/laboratorio" data-f="f0" data-f-href="f0_link">Laboratório</a></li><li data-item><a href="https://loja.quarksedu.com.br/aulas" data-f="f0" data-f-href="f0_link">Aulas online</a></li><li data-item><a href="https://portal.quarksedu.com.br/" data-f="f0" data-f-href="f0_link">Entrar no Portal</a></li></ul></div>
-    <div class="r2-col"><b data-c="site.rod.t4">Fale com a gente</b><ul data-lista="site.rod.contato"><li data-item><a href="https://wa.me/5532998057212" target="_blank" rel="noopener" data-f="f0" data-f-href="f0_link">WhatsApp (32) 99805-7212</a></li><li data-item><a href="https://maps.google.com/?q=Av.%20Rui%20Barbosa%2C%201449%2C%20Juiz%20de%20Fora" target="_blank" rel="noopener" data-f="f0" data-f-href="f0_link">Av. Rui Barbosa, 1449, Santa Terezinha, Juiz de Fora</a></li><li data-item><a href="https://www.instagram.com/quarksedu" target="_blank" rel="noopener" data-f="f0" data-f-href="f0_link">@quarksedu</a></li></ul></div>
+    <div class="r2-col"><b data-c="site.rod.t4">Fale com a gente</b><ul data-lista="site.rod.contato"><li data-item><a href="https://wa.me/5532998057212" target="_blank" rel="noopener" data-f="f0" data-f-href="f0_link">WhatsApp (32) 99805-7212</a></li><li data-item><a href="https://maps.google.com/?q=Av.%20Rui%20Barbosa%2C%201449%2C%20Juiz%20de%20Fora" target="_blank" rel="noopener" data-f="f0" data-f-href="f0_link">Av. Rui Barbosa, 1449, Santa Terezinha, Juiz de Fora</a></li><li data-item><a href="https://www.instagram.com/quarksedu" target="_blank" rel="noopener" data-f="f0" data-f-href="f0_link">@quarksedu</a></li><li data-item><a href="https://g.page/r/CU071YWDNuDYEBM/review" target="_blank" rel="noopener" data-f="f0" data-f-href="f0_link">★ Avalie o Quarks no Google</a></li></ul></div>
   </div>
   """ + faixa_guias() + """
   <div class="in r2-base"><span>© 2026 Quarks Edu · Juiz de Fora (MG)</span><span class="r2-leg"><a href="/privacidade/">Privacidade</a> · <a href="/termos/">Termos</a> · <a href="https://loja.quarksedu.com.br/">Loja do Quarks</a></span></div>
@@ -215,7 +216,8 @@ PAIS = """<ul>
 </ul>"""
 VISITA = (f"<p>O Quarks fica na <b>{ENDERECO}</b>. Atendimento de {HORARIO}. "
           f'Agende uma visita pelo <a href="{zap("Olá! Quero agendar uma visita ao Quarks.")}" target="_blank" rel="noopener">WhatsApp (32) 99805-7212</a> '
-          f'ou veja <a href="https://maps.google.com/?q=Av.%20Rui%20Barbosa%2C%201449%2C%20Juiz%20de%20Fora" target="_blank" rel="noopener">como chegar</a>.</p>')
+          f'ou veja <a href="https://maps.google.com/?q=Av.%20Rui%20Barbosa%2C%201449%2C%20Juiz%20de%20Fora" target="_blank" rel="noopener">como chegar</a>. '
+          f'Já estuda ou estudou no Quarks? <a href="{AVALIAR}" target="_blank" rel="noopener">Conte como foi no Google ★</a></p>')
 
 
 def servico(nome, desc):

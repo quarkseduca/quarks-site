@@ -104,3 +104,6 @@
 /* cabeçalho das páginas internas: sem a órbita do topo, já começa roxo (o logo e o menu são brancos) */
 .mk.pg-interna .topo{background:rgba(75,37,141,.97);border-bottom-color:rgba(255,255,255,.12)}
 .pg-interna .pg-capa{margin-top:-1px}
+/* convite para avaliar no Google (bloco "Venha conhecer" da página inicial) */
+.d-g .visite .avalie{margin-top:14px;font-size:14.5px}
+.d-g .visite .avalie a{color:inherit;font-weight:700;text-decoration:underline;text-underline-offset:3px}
