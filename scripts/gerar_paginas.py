@@ -232,6 +232,28 @@ def galeria(fotos=GALERIA):
     return '<div class="pg-galeria">' + "".join(f'<figure><img src="{s}" alt="{e(a)}" loading="lazy" width="900" height="700" style="object-position:{p}"></figure>' for s, a, p in fotos) + "</div>"
 
 
+PREVIA_IF = [("fis", "Física", "#0f9d8a"), ("mat", "Matemática", "#3d6bf0"), ("port", "Língua Portuguesa", "#e0457b"), ("qui", "Química", "#6551D1")]
+PREVIA_LEGENDAS = ["Capa", "Sumário", "Como usar", "Raio-X: o que mais cai", "Raio-X: nível de dificuldade",
+                   "Abertura do capítulo", "Teoria", "Teoria", "Questões por nível", "Questões por nível"]
+
+
+def previa_apostilas():
+    """janela com 10 páginas de cada apostila do IF (capa, sumário, raio-X, teoria e questões); páginas em site/img/previa/"""
+    abas = "".join(f'<button type="button" role="tab" aria-selected="{"true" if i == 0 else "false"}" data-ap="{k}" style="--c:{c}">{e(n)}</button>'
+                   for i, (k, n, c) in enumerate(PREVIA_IF))
+    paginas = "".join(
+        f'<div class="pg-pv-pags" data-ap="{k}"{"" if i == 0 else " hidden"}>' + "".join(
+            f'<figure><img src="/site/img/previa/if-{k}-{j}.webp" alt="Apostila de {e(n)} do IF Sudeste, página de exemplo: {e(leg)}" loading="lazy" width="900" height="1264"><figcaption>{e(leg)}</figcaption></figure>'
+            for j, leg in enumerate(PREVIA_LEGENDAS, 1)) + "</div>"
+        for i, (k, n, c) in enumerate(PREVIA_IF))
+    return (f'<dialog class="pg-pv" id="previa-if" aria-labelledby="previa-if-t"><div class="pg-pv-topo"><div><small>Prévia · 10 páginas de cada</small>'
+            f'<b id="previa-if-t">Apostilas do Preparatório IF Sudeste</b></div><button type="button" class="pg-pv-x" data-fecha aria-label="Fechar a prévia">×</button></div>'
+            f'<div class="pg-pv-abas" role="tablist">{abas}</div>'
+            f'<div class="pg-pv-palco"><button type="button" class="pg-pv-seta" data-passo="-1" aria-label="Página anterior">‹</button>{paginas}'
+            f'<button type="button" class="pg-pv-seta" data-passo="1" aria-label="Próxima página">›</button></div>'
+            f'<p class="pg-pv-rodape">Páginas reais das apostilas do Quarks (edital novo). A apostila completa vem com o preparatório.</p></dialog>')
+
+
 def quadro_professor(src, nome, materias):
     """foto recortada de um professor do Quarks num quadro roxo; raios saem dele ao passar o mouse (ou ao tocar)"""
     raio = '<path d="M13 0 3 14h7l-3 10 11-15h-7l4-9z"/>'
@@ -563,10 +585,11 @@ def paginas_servicos():
             quadro_professor("/site/img/prof-guilherme.webp", "Prof. Guilherme França", "Matemática e Física")), olho="9º ano")
         + bloco("O que vem no Preparatório IF Sudeste", recursos([
             ("turma", "Turmas pequenas", "Até 10 alunos por turma, presencial em Juiz de Fora."),
-            ("livro", "Apostila própria", "Raio-X da prova, questões por nível e gabarito comentado."),
+            ("livro", "Apostila própria", 'Raio-X da prova, questões por nível e gabarito comentado.<button type="button" class="pg-pv-abre" data-previa="previa-if">Ver prévia da apostila →</button>'),
             ("rota", "Trilha do IF", "Os conteúdos da prova na ordem certa, com treino e questões que caíram de verdade."),
             ("familia", "Família junto", "No portal das famílias, presença, tarefas, simulados e trilha."),
         ]), olho="Tudo incluído")
+        + previa_apostilas()
         + bloco("A trilha de estudos", ROTA, "pg-lilas", olho="Portal Quarks")
         + faixa_aprovados("Aprovados no IF Sudeste", filtro="IF Sudeste")
         + faq + visita()

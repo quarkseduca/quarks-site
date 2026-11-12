@@ -79,6 +79,29 @@
     }
   });
 
+  /* prévia das apostilas: <button data-previa="id-do-dialog"> abre a janela; abas por disciplina; setas passam a página */
+  d.querySelectorAll('[data-previa]').forEach(function (b) {
+    var dl = d.getElementById(b.getAttribute('data-previa')); if (!dl || !dl.showModal) return;
+    b.addEventListener('click', function () { dl.showModal(); });
+  });
+  d.querySelectorAll('dialog.pg-pv').forEach(function (dl) {
+    var atual = function () { return dl.querySelector('.pg-pv-pags:not([hidden])'); };
+    dl.addEventListener('click', function (ev) {
+      if (ev.target === dl || ev.target.closest('[data-fecha]')) { dl.close(); return; }
+      var aba = ev.target.closest('[role=tab]');
+      if (aba) {
+        dl.querySelectorAll('[role=tab]').forEach(function (x) { x.setAttribute('aria-selected', x === aba ? 'true' : 'false'); });
+        dl.querySelectorAll('.pg-pv-pags').forEach(function (p) { p.hidden = p.getAttribute('data-ap') !== aba.getAttribute('data-ap'); if (!p.hidden) p.scrollLeft = 0; });
+        return;
+      }
+      var seta = ev.target.closest('[data-passo]');
+      if (seta) { var p = atual(), f = p.querySelector('figure'); p.scrollBy({ left: (+seta.getAttribute('data-passo')) * (f ? f.offsetWidth + 16 : 300), behavior: 'smooth' }); }
+    });
+    dl.addEventListener('keydown', function (ev) {
+      if (ev.key === 'ArrowRight' || ev.key === 'ArrowLeft') { var b = dl.querySelector('[data-passo="' + (ev.key === 'ArrowRight' ? 1 : -1) + '"]'); if (b) b.click(); }
+    });
+  });
+
   /* aparição suave ao rolar */
   if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     var io = new IntersectionObserver(function (es) {
