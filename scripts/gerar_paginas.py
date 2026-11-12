@@ -14,7 +14,7 @@ O que sai (cada uma é uma pasta com index.html, servida como /pasta/):
   - simulador-pism/ (o mesmo simulador da página inicial);
   - sitemap.xml (todas as páginas) e paginas.txt (as pastas que o publicar.yml envia).
 
-Visual (13/11/2026): site/paginas-20261115.css e site/paginas-20261115.js (mudou? nome novo com a data, aqui e nos
+Visual (13/11/2026): site/paginas-20261116.css e site/paginas-20261116.js (mudou? nome novo com a data, aqui e nos
 index.html da raiz, privacidade e termos: o CDN da Hostinger guarda o arquivo antigo por 7 dias). Fotos reais em site/img/ft-*.webp.
 Imagens de compartilhamento: node scripts/gerar_og.js e depois rode este gerador de novo (site/og/*.jpg).
 
@@ -29,11 +29,11 @@ HOJE = datetime.date.today().isoformat()
 ZAP = "5532998057212"
 AVALIAR = "https://g.page/r/CU071YWDNuDYEBM/review"   # link "Pedir avaliações" do Perfil da Empresa no Google (dono, 12/11/2026)
 SIM_V = "25.14"   # mesmo ?v= do simulador na página inicial (index.html)
-CSS = ["/site/site-20261019c.css", "/site/vitrine-20261019.css", "/site/paginas-20261115.css"]   # nome novo a cada mudança (o CDN guarda 7 dias)
+CSS = ["/site/site-20261019c.css", "/site/vitrine-20261019.css", "/site/paginas-20261116.css"]   # nome novo a cada mudança (o CDN guarda 7 dias)
 JS_SITE = "/site/site-20261110.js"
 PISM_INICIO = "07/06/2027"        # Preparatório PISM online (decisão do dono, 06/11/2026)
 PISM_INICIO_CURTO = "07/06"
-JS_PG = "/site/paginas-20261115.js"   # contagem regressiva, linha do tempo, filtros, tabelas no celular, aparição suave
+JS_PG = "/site/paginas-20261116.js"   # contagem regressiva, linha do tempo, filtros, tabelas no celular, aparição suave
 # pastas de outros sistemas no public_html: nunca podem ser usadas por página do site
 PROIBIDAS = {"familia", "lab", "labaluno", "labprof", "loja", "minhacasa", "portal", "prof", "quarks-backups", "sistema", "site", "privacidade", "termos"}
 
@@ -221,7 +221,7 @@ def tabela(html_tabela, arraste="Arraste para o lado para ver tudo"):
     return f'<div class="pg-tabw"><span class="pg-arraste">{e(arraste)} →</span><div class="pg-tab">{html_tabela}</div></div>'
 
 
-GALERIA = [("/site/img/ft-turma.webp", "Alunos e professores do Quarks com a camiseta da marca", "50% 40%"),
+GALERIA = [("/site/img/ft-equipe.webp", "Professores do Quarks com a camiseta da marca", "50% 35%"),
            ("/site/img/ft-equipe-festa.webp", "Equipe do Quarks comemorando", "50% 40%"),
            ("/site/img/ft-convivencia.webp", "Aluno no espaço de convivência do Quarks", "50% 30%"),
            ("/site/img/fachada.webp", "Fachada do Quarks na Av. Rui Barbosa, em Juiz de Fora", "50% 40%"),
