@@ -221,7 +221,7 @@ def tabela(html_tabela, arraste="Arraste para o lado para ver tudo"):
     return f'<div class="pg-tabw"><span class="pg-arraste">{e(arraste)} →</span><div class="pg-tab">{html_tabela}</div></div>'
 
 
-GALERIA = [("/site/img/ft-turma.webp", "Alunos e professores do Quarks com a camiseta da marca", "50% 40%"),
+GALERIA = [("/site/img/ft-equipe.webp", "Professores do Quarks com a camiseta da marca", "50% 35%"),
            ("/site/img/ft-equipe-festa.webp", "Equipe do Quarks comemorando", "50% 40%"),
            ("/site/img/ft-convivencia.webp", "Aluno no espaço de convivência do Quarks", "50% 30%"),
            ("/site/img/fachada.webp", "Fachada do Quarks na Av. Rui Barbosa, em Juiz de Fora", "50% 40%"),

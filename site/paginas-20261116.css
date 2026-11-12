@@ -551,26 +551,15 @@ body.d-g .linha4.l3{grid-template-columns:repeat(3,minmax(0,1fr))}
 
 /* ---------------- vida (padrão desde 12/11/2026, pedido do dono: "muito roxo e branco") ----------------
    Cartões em sequência ganham as cores de apoio da marca (as das matérias, marca/paleta.md no cérebro):
-   verde-água, rosa, laranja, roxo e verde, nesta ordem. Fundo claro + ícone/número na cor forte.
+   verde-água, rosa, laranja, roxo e verde, nesta ordem. Meio-termo (dono, 12/11/2026): a cor fica só no ícone, no número e no selo; cartão, título e bordas seguem brancos e roxos.
    Vale para os recursos, a trilha numerada e os módulos de qualquer página nova. */
-.pg-recursos > :nth-child(5n+1),.pg-rota > :nth-child(5n+1),.pg-modulos > :nth-child(5n+1){--vc:#0F8B8D;--vf:#E0F4F4}
-.pg-recursos > :nth-child(5n+2),.pg-rota > :nth-child(5n+2),.pg-modulos > :nth-child(5n+2){--vc:#E8408A;--vf:#FFE8F1}
-.pg-recursos > :nth-child(5n+3),.pg-rota > :nth-child(5n+3),.pg-modulos > :nth-child(5n+3){--vc:#EE6A0A;--vf:#FFEFDD}
-.pg-recursos > :nth-child(5n+4),.pg-rota > :nth-child(5n+4),.pg-modulos > :nth-child(5n+4){--vc:#6551D1;--vf:#EFEBFF}
-.pg-recursos > :nth-child(5n+5),.pg-rota > :nth-child(5n+5),.pg-modulos > :nth-child(5n+5){--vc:#1FA463;--vf:#E6F7EC}
+.pg-recursos > :nth-child(5n+1),.pg-rota > :nth-child(5n+1),.pg-modulos > :nth-child(5n+1){--vc:#0F8B8D;--vt:#0B6B6D;--vf:#E0F4F4}
+.pg-recursos > :nth-child(5n+2),.pg-rota > :nth-child(5n+2),.pg-modulos > :nth-child(5n+2){--vc:#E8408A;--vt:#B81F62;--vf:#FFE8F1}
+.pg-recursos > :nth-child(5n+3),.pg-rota > :nth-child(5n+3),.pg-modulos > :nth-child(5n+3){--vc:#EE6A0A;--vt:#A84A06;--vf:#FFEFDD}
+.pg-recursos > :nth-child(5n+4),.pg-rota > :nth-child(5n+4),.pg-modulos > :nth-child(5n+4){--vc:#6551D1;--vt:#4B39B3;--vf:#EFEBFF}
+.pg-recursos > :nth-child(5n+5),.pg-rota > :nth-child(5n+5),.pg-modulos > :nth-child(5n+5){--vc:#1FA463;--vt:#12723F;--vf:#E6F7EC}
 
-.pg-rec{position:relative;overflow:hidden}
-.pg-rec::before{content:"";position:absolute;right:-46px;top:-46px;width:130px;height:130px;border-radius:50%;background:var(--vf,var(--lilas));opacity:.75;transition:transform .35s ease}
-.pg-rec::after{content:"";position:absolute;left:22px;right:22px;bottom:0;height:4px;border-radius:4px 4px 0 0;background:var(--vc,var(--roxo));opacity:.9}
-.pg-rec:hover::before{transform:scale(1.25)}
-.pg-rec > *{position:relative}
 .pg-rec i,.pg-lilas .pg-rec i{background:var(--vf,var(--lilas));color:var(--vc,var(--roxo))}
-.pg-rec:hover{box-shadow:0 1px 2px rgba(41,43,44,.05),0 18px 40px -20px var(--vc,rgba(75,37,141,.5))}
-
 .pg-rota li::before{background:var(--vc,var(--roxo));box-shadow:0 0 0 6px var(--vf,var(--lilas))}
-.pg-rota li{border-top:4px solid var(--vc,var(--roxo))}
-.pg-rota li:nth-child(6){border-top-color:var(--amarelo)}
 .pg-rota li:nth-child(6)::before{background:var(--amarelo);color:var(--carvao);box-shadow:0 0 0 6px #FFF6CC}
-
-.pg-mod{border-top:4px solid var(--vc,var(--roxo))}
-.pg-mod em{color:var(--vc,var(--roxo));background:var(--vf,var(--lilas))}
+.pg-mod em{color:var(--vt,var(--roxo));background:var(--vf,var(--lilas))}
