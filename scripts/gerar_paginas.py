@@ -29,7 +29,7 @@ HOJE = datetime.date.today().isoformat()
 ZAP = "5532998057212"
 AVALIAR = "https://g.page/r/CU071YWDNuDYEBM/review"   # link "Pedir avaliações" do Perfil da Empresa no Google (dono, 12/11/2026)
 SIM_V = "25.14"   # mesmo ?v= do simulador na página inicial (index.html)
-CSS = ["/site/site-20261019c.css", "/site/vitrine-20261019.css", "/site/paginas-20261114.css"]   # nome novo a cada mudança (o CDN guarda 7 dias)
+CSS = ["/site/site-20261019c.css", "/site/vitrine-20261019.css", "/site/paginas-20261114b.css"]   # nome novo a cada mudança (o CDN guarda 7 dias)
 JS_SITE = "/site/site-20261110.js"
 PISM_INICIO = "07/06/2027"        # Preparatório PISM online (decisão do dono, 06/11/2026)
 PISM_INICIO_CURTO = "07/06"
@@ -247,12 +247,20 @@ def celular(src, alt, lazy=True, classe=""):
             f'{" loading=\"lazy\"" if lazy else " fetchpriority=\"high\""}></div>')
 
 
-def capa_portal(chips=()):
+def capa_portal(chips=(), topo=True):
     """capa com dois celulares do Portal (Minha trilha na frente, teoria atrás), órbitas e selos"""
     ch = "".join(f'<span class="chip c{i + 1}"><i>{ic(c[0])}</i><span><b>{e(c[1])}</b>{e(c[2])}</span></span>' for i, c in enumerate(chips[:2]))
     return (f'<div class="pg-fc pg-fcel"><span class="pg-anel" aria-hidden="true"></span><span class="pg-anel b" aria-hidden="true"></span>'
             + celular("/site/img/trilha-3.webp", "Teoria de Gráficos do movimento no Portal Quarks", classe="tras")
-            + celular("/site/img/trilha-2.webp?v=2", "Minha trilha no Portal Quarks: o edital do PISM, assunto por assunto", lazy=False, classe="frente")
+            + celular("/site/img/trilha-2.webp?v=2", "Minha trilha no Portal Quarks: o edital do PISM, assunto por assunto", lazy=not topo, classe="frente")
+            + ch + '<span class="sim" aria-hidden="true"><img src="/site/img/symbol-purple-transparent.png" alt="" width="46" height="46"></span></div>')
+
+
+def capa_player(chips=()):
+    """capa do curso online: a aula ao vivo como o aluno vê (slide do Quarks + câmera do professor, gerada por scripts/gerar_player.js)"""
+    ch = "".join(f'<span class="chip c{i + 1}"><i>{ic(c[0])}</i><span><b>{e(c[1])}</b>{e(c[2])}</span></span>' for i, c in enumerate(chips[:2]))
+    return (f'<div class="pg-fc pg-fplay"><span class="pg-anel" aria-hidden="true"></span><span class="pg-anel b" aria-hidden="true"></span>'
+            '<div class="tela16"><img src="/site/img/aovivo-pism.webp" alt="Aula ao vivo do Preparatório PISM online: slide de Física do Quarks e o professor na câmera" width="1600" height="900" fetchpriority="high"></div>'
             + ch + '<span class="sim" aria-hidden="true"><img src="/site/img/symbol-purple-transparent.png" alt="" width="46" height="46"></span></div>')
 
 
@@ -463,6 +471,11 @@ def paginas_servicos():
             ("rota", "Trilha do edital", "Os conteúdos do PISM I e do PISM II na ordem certa. A coordenação ajusta para cada aluno."),
             ("familia", "Família junto", "Portal das famílias com presença, tarefas, simulados e a trilha."),
         ]), olho="Como funciona")
+        + bloco("Entre uma aula e outra, o Portal", dois(
+            "<p>A aula ao vivo é o encontro com o professor. Entre uma aula e outra, o aluno estuda pelo <b>Portal Quarks</b>, no computador ou no celular: "
+            "a trilha do edital do PISM, assunto por assunto, com <b>teoria</b>, <b>treino</b> e <b>questões oficiais</b> de cada disciplina.</p>"
+            "<p>A coordenação acompanha a mesma trilha, e os pais veem tudo no portal das famílias.</p>",
+            capa_portal([("rota", "Minha trilha", "o edital do PISM"), ("livro", "4 disciplinas", "no Portal")], topo=False)), olho="Portal Quarks")
         + bloco("Teoria, treino e prova oficial, um depois do outro", demo_portal(), "pg-lilas", olho="Veja o Portal por dentro", id_="portal")
         + bloco("Tudo do PISM num lugar só", "<p style=\"max-width:62ch;margin-bottom:30px\">Telas reais do Portal Quarks, com uma aluna de exemplo. Funciona no computador e no celular.</p>" + portal, olho="Portal Quarks")
         + bloco("O PISM se ganha nos três anos", dois(
@@ -488,9 +501,9 @@ def paginas_servicos():
              lead=f"Aulas ao vivo para o PISM I e o PISM II, com o professor junto e todas as disciplinas no Portal Quarks. Começa em <b>{PISM_INICIO}</b>.",
              ctas=botoes("Quero saber mais", "Olá! Quero saber do Preparatório PISM online do Quarks.", ("Ver como é o Portal", "#portal")),
              numeros=num((PISM_INICIO_CURTO, "início das aulas"), ("4", "disciplinas ao vivo"), ("200+", "aprovados do Quarks")),
-             visual=capa_portal([("chat", "Ao vivo", "com o professor"), ("calendario", "Início", PISM_INICIO)]),
-             corpo=corpo, trilha=[("Preparatório PISM", "/preparatorio-pism/")], imagem="/site/img/portal-pism.webp", prioridade="0.9",
-             og_quadro="/site/img/portal-pism.webp",
+             visual=capa_player([("chat", "Ao vivo", "com o professor"), ("calendario", "Início", PISM_INICIO)]),
+             corpo=corpo, trilha=[("Preparatório PISM", "/preparatorio-pism/")], imagem="/site/img/aovivo-pism.webp", prioridade="0.9",
+             og_quadro="/site/img/aovivo-pism.webp",
              schemas=[curso("Preparatório PISM online (UFJF)", f"Preparatório online, com aulas ao vivo, para o PISM I e o PISM II da UFJF: Física, Química, Matemática e Português, turmas reduzidas e trilha do edital no Portal Quarks. Início em {PISM_INICIO}.", online=True, inicio="2027-06-07"), fs])
 
     # Preparatório IF Sudeste
