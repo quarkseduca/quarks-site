@@ -1,0 +1,749 @@
+[
+{
+"pasta": "nota-de-corte-pism/administracao-integral",
+"titulo": "Nota de corte de Administração (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Economia e Administração",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "583,50",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/administracao-noturno",
+"titulo": "Nota de corte de Administração (noturno) no PISM",
+"selo": "UFJF · Juiz de Fora · Economia e Administração",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "533,50",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/arquitetura-e-urbanismo-integral",
+"titulo": "Nota de corte de Arquitetura e Urbanismo (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "777,25",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/artes-visuais-bacharelado-integral",
+"titulo": "Nota de corte de Artes Visuais - Bacharelado (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2020, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "571,50",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/artes-visuais-licenciatura-integral",
+"titulo": "Nota de corte de Artes Visuais - Licenciatura (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2020, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "391",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/bacharelado-interdisciplinar-em-artes-e-design-integral",
+"titulo": "Nota de corte de Bacharelado Interdisciplinar em Artes e Design (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "465,95",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/bacharelado-interdisciplinar-em-ciencias-humanas-integral-vespertino-noturno",
+"titulo": "Nota de corte de Bacharelado Interdisciplinar em Ciências Humanas (integral - vespertino/noturno) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2026, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "412,75",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/bacharelado-interdisciplinar-em-ciencias-humanas-integral",
+"titulo": "Nota de corte de Bacharelado Interdisciplinar em Ciências Humanas (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "270",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/bacharelado-interdisciplinar-em-ciencias-humanas-noturno",
+"titulo": "Nota de corte de Bacharelado Interdisciplinar em Ciências Humanas (noturno) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "198",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/ciencia-da-computacao-integral",
+"titulo": "Nota de corte de Ciência da Computação (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Exatas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "1.015,50",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/ciencia-da-computacao-noturno",
+"titulo": "Nota de corte de Ciência da Computação (noturno) no PISM",
+"selo": "UFJF · Juiz de Fora · Exatas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "860,25",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/ciencia-da-religiao-licenciatura-noturno",
+"titulo": "Nota de corte de Ciência da Religião - Licenciatura (noturno) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2026, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "570",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/ciencias-biologicas-bacharelado-licenciatura-integral",
+"titulo": "Nota de corte de Ciências Biológicas - Bacharelado/Licenciatura (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Saúde",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "715,75",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/ciencias-contabeis-integral",
+"titulo": "Nota de corte de Ciências Contábeis (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Economia e Administração",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "426,75",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/ciencias-contabeis-noturno",
+"titulo": "Nota de corte de Ciências Contábeis (noturno) no PISM",
+"selo": "UFJF · Juiz de Fora · Economia e Administração",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "421,75",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/ciencias-economicas-integral",
+"titulo": "Nota de corte de Ciências Econômicas (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Economia e Administração",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "579,25",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/ciencias-economicas-noturno",
+"titulo": "Nota de corte de Ciências Econômicas (noturno) no PISM",
+"selo": "UFJF · Juiz de Fora · Economia e Administração",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "384,50",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/ciencias-exatas-integral",
+"titulo": "Nota de corte de Ciências Exatas (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Exatas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "326",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/ciencias-sociais-bacharelado-vespertino",
+"titulo": "Nota de corte de Ciências Sociais - Bacharelado (vespertino) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2026, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "537,50",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/ciencias-sociais-licenciatura-noturno",
+"titulo": "Nota de corte de Ciências Sociais - Licenciatura (noturno) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2026, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "438,50",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/cinema-e-audiovisual-integral",
+"titulo": "Nota de corte de Cinema e Audiovisual (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2020, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "629",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/design-integral",
+"titulo": "Nota de corte de Design (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2020, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "630,50",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/direito-integral",
+"titulo": "Nota de corte de Direito (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "890",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/direito-noturno",
+"titulo": "Nota de corte de Direito (noturno) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "806,75",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/educacao-fisica-bacharelado-licenciatura-integral",
+"titulo": "Nota de corte de Educação Física - Bacharelado/Licenciatura (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Saúde",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "476",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/enfermagem-integral",
+"titulo": "Nota de corte de Enfermagem (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Saúde",
+"lead": "Ano a ano desde o PISM 2020, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "546",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/enfermagem-bacharelado-licenciatura-integral",
+"titulo": "Nota de corte de Enfermagem - Bacharelado/Licenciatura (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Saúde",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "518,60",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/engenharia-ambiental-e-sanitaria-integral",
+"titulo": "Nota de corte de Engenharia Ambiental e Sanitária (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Exatas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "354,75",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/engenharia-civil-integral",
+"titulo": "Nota de corte de Engenharia Civil (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Exatas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "719",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/engenharia-computacional-integral",
+"titulo": "Nota de corte de Engenharia Computacional (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Exatas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "1.033,25",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/engenharia-de-producao-noturno",
+"titulo": "Nota de corte de Engenharia de Produção (noturno) no PISM",
+"selo": "UFJF · Juiz de Fora · Exatas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "746,75",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/engenharia-eletrica-energia-noturno",
+"titulo": "Nota de corte de Engenharia Elétrica - Energia (noturno) no PISM",
+"selo": "UFJF · Juiz de Fora · Exatas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "536,75",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/engenharia-eletrica-robotica-e-automacao-industrial-integral",
+"titulo": "Nota de corte de Engenharia Elétrica - Robótica e Automação Industrial (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Exatas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "945,25",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/engenharia-eletrica-sistemas-de-potencia-integral",
+"titulo": "Nota de corte de Engenharia Elétrica - Sistemas de Potência (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Exatas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "702,50",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/engenharia-eletrica-sistemas-eletronicos-integral",
+"titulo": "Nota de corte de Engenharia Elétrica - Sistemas Eletrônicos (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Exatas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "614,25",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/engenharia-eletrica-telecomunicacoes-integral",
+"titulo": "Nota de corte de Engenharia Elétrica - Telecomunicações (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Exatas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "365,25",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/engenharia-mecanica-integral",
+"titulo": "Nota de corte de Engenharia Mecânica (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Exatas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "892,75",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/estatistica-integral",
+"titulo": "Nota de corte de Estatística (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Exatas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "441,75",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/farmacia-integral",
+"titulo": "Nota de corte de Farmácia (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Saúde",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "676,75",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/filosofia-bacharelado-licenciatura-integral",
+"titulo": "Nota de corte de Filosofia - Bacharelado/Licenciatura (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "289,75",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/fisica-bacharelado-licenciatura-integral",
+"titulo": "Nota de corte de Física - Bacharelado/Licenciatura (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Exatas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "619,50",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/fisica-licenciatura-noturno",
+"titulo": "Nota de corte de Física - Licenciatura (noturno) no PISM",
+"selo": "UFJF · Juiz de Fora · Exatas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "438,50",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/fisioterapia-integral",
+"titulo": "Nota de corte de Fisioterapia (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Saúde",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "719,75",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/geografia-bacharelado-licenciatura-integral",
+"titulo": "Nota de corte de Geografia - Bacharelado/Licenciatura (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "438,25",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/geografia-licenciatura-noturno",
+"titulo": "Nota de corte de Geografia - Licenciatura (noturno) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "219,50",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/historia-bacharelado-licenciatura-integral",
+"titulo": "Nota de corte de História - Bacharelado/Licenciatura (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "718,75",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/historia-bacharelado-licenciatura-noturno",
+"titulo": "Nota de corte de História - Bacharelado/Licenciatura (noturno) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "398,50",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/jornalismo-integral",
+"titulo": "Nota de corte de Jornalismo (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "753,75",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/jornalismo-noturno",
+"titulo": "Nota de corte de Jornalismo (noturno) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "684,50",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/letras-bacharelado-licenciatura-integral",
+"titulo": "Nota de corte de Letras - Bacharelado/Licenciatura (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "629,75",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/letras-licenciatura-noturno",
+"titulo": "Nota de corte de Letras - Licenciatura (noturno) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "366,50",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/letras-libras-licenciatura-noturno",
+"titulo": "Nota de corte de Letras-Libras - Licenciatura (noturno) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "450",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/matematica-bacharelado-licenciatura-integral",
+"titulo": "Nota de corte de Matemática - Bacharelado/Licenciatura (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Exatas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "648,25",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/matematica-licenciatura-noturno",
+"titulo": "Nota de corte de Matemática - Licenciatura (noturno) no PISM",
+"selo": "UFJF · Juiz de Fora · Exatas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "354,75",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/medicina-integral",
+"titulo": "Nota de corte de Medicina (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Saúde",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "1.040,25",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/medicina-veterinaria-integral",
+"titulo": "Nota de corte de Medicina Veterinária (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Saúde",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "651",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/moda-integral",
+"titulo": "Nota de corte de Moda (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2020, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "617",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/musica-bacharelado-integral",
+"titulo": "Nota de corte de Música - Bacharelado (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "255,50",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/musica-licenciatura-integral",
+"titulo": "Nota de corte de Música - Licenciatura (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "397,25",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/nutricao-integral",
+"titulo": "Nota de corte de Nutrição (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Saúde",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "561,75",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/odontologia-integral",
+"titulo": "Nota de corte de Odontologia (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Saúde",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "681,25",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/pedagogia-licenciatura-matutino",
+"titulo": "Nota de corte de Pedagogia - Licenciatura (matutino) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "581,25",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/pedagogia-licenciatura-noturno",
+"titulo": "Nota de corte de Pedagogia - Licenciatura (noturno) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "484,25",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/psicologia-integral",
+"titulo": "Nota de corte de Psicologia (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "858,75",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/quimica-bacharelado-licenciatura-integral",
+"titulo": "Nota de corte de Química - Bacharelado/Licenciatura (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Exatas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "534,50",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/quimica-licenciatura-noturno",
+"titulo": "Nota de corte de Química - Licenciatura (noturno) no PISM",
+"selo": "UFJF · Juiz de Fora · Exatas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "271,75",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/radio-tv-e-internet-integral",
+"titulo": "Nota de corte de Rádio, TV e Internet (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "539,75",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/servico-social-matutino",
+"titulo": "Nota de corte de Serviço Social (matutino) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "605,25",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/servico-social-noturno",
+"titulo": "Nota de corte de Serviço Social (noturno) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "357",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/sistemas-de-informacao-noturno",
+"titulo": "Nota de corte de Sistemas de Informação (noturno) no PISM",
+"selo": "UFJF · Juiz de Fora · Exatas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "707,75",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/turismo-integral",
+"titulo": "Nota de corte de Turismo (integral) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "245,25",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism/turismo-noturno",
+"titulo": "Nota de corte de Turismo (noturno) no PISM",
+"selo": "UFJF · Juiz de Fora · Humanas e Sociais Aplicadas",
+"lead": "Ano a ano desde o PISM 2019, por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "499",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-pism",
+"titulo": "Nota de corte do PISM: todos os cursos da UFJF",
+"selo": "PISM 2019 a 2026 · notas oficiais",
+"lead": "A nota de corte de cada curso de Juiz de Fora, ano a ano e por grupo de cotas, com as notas oficiais da UFJF.",
+"valor": "1.040,25",
+"unidade": "de 1.300",
+"foto": ""
+},
+{
+"pasta": "preparatorio-pism",
+"titulo": "Preparatório PISM em Juiz de Fora",
+"selo": "Presencial · até 10 por turma",
+"lead": "O ano todo ao lado do aluno, com foco no que mais cai na UFJF, nos três módulos do PISM.",
+"valor": "",
+"unidade": "",
+"foto": "/site/img/ft-aprovados-pism.webp"
+},
+{
+"pasta": "preparatorio-if-sudeste",
+"titulo": "Preparatório IF Sudeste MG em Juiz de Fora",
+"selo": "Presencial · até 10 por turma",
+"lead": "Física, Química, Português e Matemática, apostila própria e a trilha do IF, para entrar nos técnicos integrados.",
+"valor": "",
+"unidade": "",
+"foto": "/site/img/ft-aprovados-if.webp"
+},
+{
+"pasta": "acompanhamento-escolar",
+"titulo": "Acompanhamento e reforço escolar em Juiz de Fora",
+"selo": "No máximo 2 alunos por turma",
+"lead": "Física, Química, Matemática e Português toda semana, no mesmo horário o ano todo. A aprovação vem como consequência.",
+"valor": "",
+"unidade": "",
+"foto": "/site/img/ft-equipe-festa.webp"
+},
+{
+"pasta": "aula-particular",
+"titulo": "Aula particular em Juiz de Fora",
+"selo": "Individual · quando precisar",
+"lead": "Física, Química, Matemática ou Português, para tirar dúvidas, revisar a matéria da escola ou se preparar para uma prova.",
+"valor": "",
+"unidade": "",
+"foto": "/site/img/ft-equipe-alto.webp"
+},
+{
+"pasta": "mentoria-de-estudos",
+"titulo": "Mentoria de estudos em Juiz de Fora",
+"selo": "Individual · encontros ao longo do ano",
+"lead": "Metas claras, um plano de estudo que cabe na rotina e encontros para acompanhar a evolução.",
+"valor": "",
+"unidade": "",
+"foto": "/site/img/ft-foco.webp"
+},
+{
+"pasta": "aprovados",
+"titulo": "Aprovados do Quarks",
+"selo": "200+ aprovados",
+"lead": "UFJF, UFRJ e IF Sudeste MG. Cada um escreveu no braço o curso que conquistou.",
+"valor": "",
+"unidade": "",
+"foto": "/site/img/ft-aprovados-ufjf.webp"
+},
+{
+"pasta": "pism",
+"titulo": "PISM 2027: o guia completo",
+"selo": "Atualizado em 11/11/2026",
+"lead": "Datas, como é a prova de cada módulo, como a UFJF calcula a nota e como funcionam as cotas, conferido no edital da Copese.",
+"valor": "",
+"unidade": "",
+"foto": ""
+},
+{
+"pasta": "gabarito-pism-2027",
+"titulo": "Gabarito do PISM 2027",
+"selo": "Gabaritos em 07/12/2026",
+"lead": "As provas são em 05 e 06/12/2026 e a Copese divulga os gabaritos em 07/12/2026. Veja o que vem depois e como conferir a sua nota.",
+"valor": "",
+"unidade": "",
+"foto": ""
+},
+{
+"pasta": "nota-de-corte-if-sudeste",
+"titulo": "Nota de corte do IF Sudeste MG em Juiz de Fora",
+"selo": "Técnicos integrados · 2023 a 2026",
+"lead": "A nota do último classificado em cada curso técnico integrado do campus Juiz de Fora, ano a ano e por modalidade de cotas.",
+"valor": "70",
+"unidade": "de 90",
+"foto": ""
+},
+{
+"pasta": "simulador-pism",
+"titulo": "Simulador do PISM e do IF Sudeste",
+"selo": "Notas oficiais da UFJF e do IF",
+"lead": "Digite a sua nota e veja onde você estaria entre quem fez o PISM e quanto falta para o curso que você quer.",
+"valor": "",
+"unidade": "",
+"foto": "/site/img/ft-comemoracao.webp"
+}
+]
