@@ -1,10 +1,13 @@
 // Imagens de compartilhamento (1200x630) de cada página gerada, em site/og/<pasta>.jpg (barra vira "--").
 // Rode depois de scripts/gerar_paginas.py (que escreve scripts/og-paginas.json) e rode o gerador de novo
 // para as páginas apontarem para as imagens:  node scripts/gerar_og.js && python3 scripts/gerar_paginas.py
+// Só algumas páginas (ex.: no dia do gabarito):  node scripts/gerar_og.js gabarito-pism-2027 pism
 const { chromium } = require('playwright');
 const fs = require('fs'), path = require('path');
 const RAIZ = path.join(__dirname, '..');
-const lista = JSON.parse(fs.readFileSync(path.join(__dirname, 'og-paginas.json'), 'utf8'));
+const SO = process.argv.slice(2);
+const lista = JSON.parse(fs.readFileSync(path.join(__dirname, 'og-paginas.json'), 'utf8')).filter((x) => !SO.length || SO.includes(x.pasta));
+if (!lista.length) { console.error('Nenhuma página com esse nome em og-paginas.json: ' + SO.join(', ')); process.exit(1); }
 const TIPOS = { woff2: 'font/woff2', png: 'image/png', webp: 'image/webp', jpg: 'image/jpeg' };
 const _cache = {};
 // setContent não lê file://: tudo entra como data: URI

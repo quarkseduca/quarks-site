@@ -1,5 +1,5 @@
 # Publica o site principal sozinho na Hostinger a cada push no main (o dono não precisa mais enviar zip).
-# Envia SÓ os arquivos do site (index.html, robots.txt, sitemap.xml, privacidade/, termos/, site/ e as pastas listadas em paginas.txt) para a pasta do site por FTP.
+# Envia SÓ os arquivos do site (index.html, robots.txt, sitemap.xml, .htaccess, privacidade/, termos/, site/ e as pastas listadas em paginas.txt) para a pasta do site por FTP com criptografia (FTPS).
 # As outras pastas do public_html (familia, lab, loja, portal, prof, sistema...) nunca são tocadas:
 # a ação só mexe nos arquivos que ela mesma enviou (guarda a lista em .ftp-deploy-sync-state.json no servidor).
 # Precisa de 4 segredos no GitHub (Settings > Secrets and variables > Actions), criados pelo dono:
@@ -10,15 +10,18 @@ on:
     branches: [main]
   workflow_dispatch:
 concurrency: publicar-site
+permissions:
+  contents: read
 jobs:
   publicar:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - name: Separar só os arquivos do site
         run: |
           mkdir _publicar
-          cp index.html robots.txt sitemap.xml _publicar/
+          cp index.html robots.txt sitemap.xml .htaccess _publicar/
           for p in $(cat paginas.txt); do cp -r "$p" _publicar/; done   # páginas geradas por scripts/gerar_paginas.py
           cp -r site privacidade termos _publicar/
       - name: Enviar por FTP para a Hostinger
@@ -28,5 +31,6 @@ jobs:
           username: ${{ secrets.FTP_USUARIO }}
           password: ${{ secrets.FTP_SENHA }}
           server-dir: ${{ secrets.FTP_PASTA }}
+          protocol: ftps   # usuário e senha viajam cifrados (FTP com TLS explícito, porta 21)
           local-dir: ./_publicar/
           dangerous-clean-slate: false

@@ -1,0 +1,9 @@
+# Site principal do Quarks (www.quarksedu.com.br). Este arquivo fica na raiz do public_html,
+# então vale também para as pastas dos outros sistemas (sistema, loja, lab, portal, prof, familia...):
+# só entra aqui regra que não muda nada neles. Regras gerais (cache, redirecionamento, página de erro) NÃO.
+
+# Lista de arquivos que a publicação guarda no servidor (FTP-Deploy-Action). A ação lê esse arquivo por FTP;
+# pelo navegador ninguém precisa ver.
+<Files ".ftp-deploy-sync-state.json">
+  Require all denied
+</Files>

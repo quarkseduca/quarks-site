@@ -746,6 +746,17 @@ def pagina_aprovados():
 EDITAL = "https://www2.ufjf.br/copese/2026/06/10/publicado-edital-do-pism-2027/"
 RES340 = "https://www2.ufjf.br/copese/wp-content/uploads/sites/42/2026/06/SEI_3007081_ADM_Legislacao_002.01___Resolucao_340.pdf"
 COPESE = "https://www2.ufjf.br/copese/vestibular-pism-2/"
+# GABARITO DO PISM 2027 (página gabarito-pism-2027/ e o quadro do guia pism/).
+# Enquanto GABARITO_LINK está vazio, os textos não dizem "já saiu" nem "vai sair": só a data do edital e o site da Copese,
+# e valem antes, no dia e depois de 07/12/2026.
+# QUANDO A COPESE PUBLICAR (dono: "atualiza o gabarito"): cole em GABARITO_LINK o endereço da notícia ou da página da
+# Copese com os gabaritos (tem de ser do site da UFJF, copiado de lá, nunca inventado); se a divulgação não foi em
+# 07/12/2026, acerte GABARITO_DIA. Rode python3 scripts/gerar_paginas.py e faça commit. Título, selo, textos, perguntas
+# e o botão passam sozinhos para "já saiu", com o link direto.
+GABARITO_LINK = ""
+GABARITO_DIA = "07/12/2026"
+if GABARITO_LINK and not re.match(r"https://([a-z0-9-]+\.)*ufjf\.br/\S+$", GABARITO_LINK):
+    sys.exit("GABARITO_LINK tem de ser um endereço https do site da UFJF (ufjf.br), copiado da Copese.")
 # (evento, data como aparece, data ISO do dia, detalhe)
 DATAS = [("Provas de todos os módulos", "05 e 06/12/2026", "2026-12-05", "Juiz de Fora, Governador Valadares, Muriaé, Petrópolis e Três Rios"),
          ("Gabaritos", "07/12/2026", "2026-12-07", "no site da Copese"),
@@ -819,8 +830,8 @@ def paginas_pism():
         + cta("Prepare-se para o PISM com o Quarks", f"Preparatório PISM online, com aulas ao vivo, turmas reduzidas e todas as disciplinas no Portal Quarks. Início em {PISM_INICIO}.", "Quero saber do Preparatório PISM",
               "Olá! Li o guia do PISM e quero saber do Preparatório PISM online do Quarks.", ("Ver o Preparatório PISM", "/preparatorio-pism/")))
     conta = capa_contagem("2026-12-05T13:00:00-03:00", "Falta para o PISM 2027", "05 e 06/12", "Provas dos três módulos. Gabaritos em 07/12.",
-                          '<div class="rot">PISM 2027</div><div class="val" style="font-size:40px">Provas feitas</div><div class="sub">Os gabaritos saem em 07/12 e o resultado do módulo III em 04/02/2027.</div>',
-                          '<div class="acao"><a class="btn am" href="#datas">Ver todas as datas</a></div>')
+                          '<div class="rot">PISM 2027</div><div class="val" style="font-size:40px">Provas feitas</div><div class="sub">' + (f'Gabaritos divulgados em {GABARITO_DIA}. ' if GABARITO_LINK else 'Gabaritos: 07/12/2026, pelo edital. ') + 'Resultado do módulo III: 04/02/2027.</div>',
+                          (f'<div class="acao"><a class="btn am" href="/gabarito-pism-2027/">Ver o gabarito</a></div>' if GABARITO_LINK else '<div class="acao"><a class="btn am" href="#datas">Ver todas as datas</a></div>'))
     escrever("pism", titulo="PISM 2027 (UFJF): datas, como é a prova, nota e cotas | Guia do Quarks",
              descricao="Guia do PISM 2027 da UFJF: provas em 05 e 06/12/2026, gabarito em 07/12, resultado do módulo III em 04/02/2027, como é a prova, como calcular a nota e as cotas.",
              h1="PISM 2027: o guia completo", selo="Atualizado em 11/11/2026",
@@ -830,17 +841,32 @@ def paginas_pism():
              corpo=corpo, trilha=[("Guia do PISM", "/pism/")], prioridade="0.9",
              schemas=[fs, {"@type": "Article", "headline": "PISM 2027: o guia completo", "author": ORG, "publisher": ORG, "dateModified": HOJE, "inLanguage": "pt-BR"}])
 
-    perguntas = [
-        ("Quando sai o gabarito do PISM 2027?", "A Copese divulga os gabaritos em 07/12/2026, no dia seguinte às provas (05 e 06/12/2026)."),
-        ("Onde vejo o gabarito oficial?", f'No site da Copese/UFJF, na página do PISM 2027.'),
-        ("Posso entrar com recurso?", "Sim, em 08/12/2026, das 9h às 16h, pelo site da Copese."),
-        ("Quando saem as notas?", "O gabarito final e as notas do módulo III saem em 19/01/2027 e o resultado final do módulo III em 04/02/2027. As notas dos módulos I e II saem em 05/05/2027."),
+    saiu = bool(GABARITO_LINK)
+    if saiu:
+        perguntas = [
+            ("O gabarito do PISM 2027 já saiu?", f'Sim. A Copese/UFJF divulgou os gabaritos em {GABARITO_DIA}. O gabarito oficial está no <a href="{GABARITO_LINK}" target="_blank" rel="noopener">site da Copese</a>.'),
+            ("Onde vejo o gabarito oficial?", f'No <a href="{GABARITO_LINK}" target="_blank" rel="noopener">site da Copese/UFJF</a>. O gabarito oficial é publicado só lá.'),
+        ]
+    else:
+        perguntas = [
+            ("Quando sai o gabarito do PISM 2027?", "Pelo edital, a Copese divulga os gabaritos em 07/12/2026, no dia seguinte às provas (05 e 06/12/2026). O gabarito oficial é publicado só no site da Copese."),
+            ("Onde vejo o gabarito oficial?", 'No site da Copese/UFJF, na página do PISM 2027.'),
+        ]
+    perguntas += [
+        ("Posso entrar com recurso?", "Sim. Pelo edital, o recurso contra as provas é em 08/12/2026, das 9h às 16h, pelo site da Copese."),
+        ("Quando saem as notas?", "Pelo edital, o gabarito final e as notas do módulo III saem em 19/01/2027 e o resultado final do módulo III em 04/02/2027. As notas dos módulos I e II saem em 05/05/2027."),
         ("Como sei se a minha nota dá para o meu curso?", 'Compare com a <a href="/nota-de-corte-pism/">nota de corte de cada curso</a> e use o <a href="/simulador-pism/">simulador do PISM</a>.'),
     ]
     faq, fs = faq_html(perguntas)
+    if saiu:
+        primeiro = bloco("O gabarito já saiu", f"<p>A Copese/UFJF divulgou os <b>gabaritos do PISM 2027 em {GABARITO_DIA}</b>, dos três módulos (provas de 05 e 06/12/2026).</p>"
+                         f'<p><a class="btn am" href="{GABARITO_LINK}" target="_blank" rel="noopener">Ver o gabarito oficial na Copese</a></p>'
+                         "<p>Pelo edital, o recurso contra as provas é em 08/12/2026, das 9h às 16h, pelo site da Copese. O gabarito final e as notas do módulo III saem em 19/01/2027.</p>", olho=GABARITO_DIA, tx=True)
+    else:
+        primeiro = bloco("Quando sai o gabarito", "<p>Provas do PISM 2027: <b>05 e 06/12/2026</b>, para os três módulos. Pelo edital, a Copese/UFJF divulga os <b>gabaritos em 07/12/2026</b> no site oficial, e o recurso contra as provas é em 08/12/2026.</p>"
+                         f'<p>O gabarito oficial é publicado só no <a href="{COPESE}" target="_blank" rel="noopener">site da Copese</a>. Depois que ele sair, o link direto entra aqui.</p>', olho="07/12/2026", tx=True)
     corpo = (
-        bloco("Quando sai o gabarito", "<p>As provas do PISM 2027 são em <b>05 e 06/12/2026</b>, para os três módulos. A Copese/UFJF divulga os <b>gabaritos em 07/12/2026</b> no site oficial, e o recurso contra as questões vai até 08/12/2026.</p>"
-              f'<p>O gabarito oficial fica no <a href="{COPESE}" target="_blank" rel="noopener">site da Copese</a>. Esta página do Quarks é atualizada assim que ele sair, com o link direto.</p>', olho="07/12/2026", tx=True)
+        primeiro
         + bloco("Calendário depois da prova", dois("<p>A data marcada como <b>Próxima</b> se atualiza sozinha.</p>" + FONTE_EDITAL, tabela_datas()), "pg-lilas", olho="Calendário")
         + bloco("Confira a sua nota", recursos([
             ("check", "1. Conte as objetivas", "Com o gabarito, conte as objetivas certas de cada dia. Cada uma vale 1 ponto."),
@@ -850,14 +876,28 @@ def paginas_pism():
         + faq
         + cta("O próximo módulo com o Quarks", f"O Preparatório PISM online do Quarks tem turmas de PISM I e PISM II, com aulas ao vivo e o Portal Quarks. Início em {PISM_INICIO}.", "Quero saber do Preparatório PISM",
               "Olá! Fiz o PISM e quero saber do Preparatório PISM online do Quarks.", ("Guia do PISM 2027", "/pism/")))
-    conta = capa_contagem("2026-12-07T00:00:00-03:00", "Falta para o gabarito", "07/12/2026", "A Copese publica os gabaritos no dia seguinte às provas.",
-                          f'<div class="rot">Gabarito do PISM 2027</div><div class="val" style="font-size:40px">Já saiu</div><div class="sub">Confira no site oficial da Copese/UFJF.</div>'
-                          f'<div class="acao"><a class="btn am" href="{COPESE}" target="_blank" rel="noopener">Ver o gabarito na Copese</a></div>')
-    escrever("gabarito-pism-2027", titulo="Gabarito do PISM 2027: data e onde conferir | Quarks Edu",
-             descricao="Gabarito do PISM 2027 da UFJF: as provas são em 05 e 06/12/2026 e a Copese divulga os gabaritos em 07/12/2026. Veja o calendário de recursos, notas e resultado.",
-             h1="Gabarito do PISM 2027", selo="Gabaritos em 07/12/2026",
-             lead="As provas são em 05 e 06/12/2026 e a Copese divulga os gabaritos em 07/12/2026. Veja o que vem depois e como conferir a sua nota.",
-             ctas=f'<div class="pg-ctas"><a class="btn am" href="{COPESE}" target="_blank" rel="noopener">Site da Copese</a><a class="pg-bt2" href="/nota-de-corte-pism/">Notas de corte</a></div>',
+    if saiu:
+        # sem contagem: quadro fixo com o link direto
+        conta = (f'<div class="pg-dado"><div class="rot">Gabarito do PISM 2027</div><div class="val" style="font-size:40px">Já saiu</div>'
+                 f'<div class="sub">Divulgado pela Copese/UFJF em {GABARITO_DIA}.</div>'
+                 f'<div class="acao"><a class="btn am" href="{GABARITO_LINK}" target="_blank" rel="noopener">Ver o gabarito na Copese</a></div></div>')
+        titulo = "Gabarito do PISM 2027: já saiu, veja onde conferir | Quarks Edu"
+        descricao = f"Gabarito do PISM 2027 da UFJF: a Copese divulgou os gabaritos em {GABARITO_DIA}. Veja o link oficial, o calendário de recursos, notas e resultado."
+        selo = f"Gabaritos divulgados em {GABARITO_DIA}"
+        lead = f"A Copese divulgou os gabaritos do PISM 2027 em {GABARITO_DIA}. Veja o link oficial, o que vem depois e como conferir a sua nota."
+        bt = f'<a class="btn am" href="{GABARITO_LINK}" target="_blank" rel="noopener">Ver o gabarito oficial</a>'
+    else:
+        # a contagem acaba à 0h de 07/12, mas a Copese só publica durante o dia: o quadro de depois não afirma que saiu
+        conta = capa_contagem("2026-12-07T00:00:00-03:00", "Falta para o dia do gabarito", "07/12/2026", "Pelo edital, a Copese publica os gabaritos no dia seguinte às provas.",
+                              f'<div class="rot">Gabarito do PISM 2027</div><div class="val" style="font-size:40px">07/12/2026</div><div class="sub">É a data do edital. Veja no site oficial da Copese/UFJF se o gabarito já foi publicado.</div>'
+                              f'<div class="acao"><a class="btn am" href="{COPESE}" target="_blank" rel="noopener">Abrir o site da Copese</a></div>')
+        titulo = "Gabarito do PISM 2027: data e onde conferir | Quarks Edu"
+        descricao = "Gabarito do PISM 2027 da UFJF: provas em 05 e 06/12/2026 e gabaritos em 07/12/2026 pelo edital, no site da Copese. Veja o calendário de recursos, notas e resultado."
+        selo = "Data do edital: 07/12/2026"
+        lead = "Provas em 05 e 06/12/2026. Pelo edital, a Copese divulga os gabaritos em 07/12/2026, no site oficial. Veja o que vem depois e como conferir a sua nota."
+        bt = f'<a class="btn am" href="{COPESE}" target="_blank" rel="noopener">Site da Copese</a>'
+    escrever("gabarito-pism-2027", titulo=titulo, descricao=descricao, h1="Gabarito do PISM 2027", selo=selo, lead=lead,
+             ctas=f'<div class="pg-ctas">{bt}<a class="pg-bt2" href="/nota-de-corte-pism/">Notas de corte</a></div>',
              visual=conta, corpo=corpo, trilha=[("Guia do PISM", "/pism/"), ("Gabarito do PISM 2027", "/gabarito-pism-2027/")], prioridade="0.8",
              schemas=[fs])
 
