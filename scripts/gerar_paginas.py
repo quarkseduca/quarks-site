@@ -29,7 +29,7 @@ HOJE = datetime.date.today().isoformat()
 ZAP = "5532998057212"
 AVALIAR = "https://g.page/r/CU071YWDNuDYEBM/review"   # link "Pedir avaliações" do Perfil da Empresa no Google (dono, 12/11/2026)
 SIM_V = "25.14"   # mesmo ?v= do simulador na página inicial (index.html)
-CSS = ["/site/site-20261019c.css", "/site/vitrine-20261019.css", "/site/paginas-20261114b.css"]   # nome novo a cada mudança (o CDN guarda 7 dias)
+CSS = ["/site/site-20261019c.css", "/site/vitrine-20261019.css", "/site/paginas-20261114c.css"]   # nome novo a cada mudança (o CDN guarda 7 dias)
 JS_SITE = "/site/site-20261110.js"
 PISM_INICIO = "07/06/2027"        # Preparatório PISM online (decisão do dono, 06/11/2026)
 PISM_INICIO_CURTO = "07/06"
@@ -264,6 +264,25 @@ def capa_player(chips=()):
             + ch + '<span class="sim" aria-hidden="true"><img src="/site/img/symbol-purple-transparent.png" alt="" width="46" height="46"></span></div>')
 
 
+def semana():
+    """grade visual dos horários do Acompanhamento (seg a sex e sábado)"""
+    dias = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"]
+    linhas = [("14h", "15h30", 5), ("15h30", "17h", 5), ("17h15", "18h45", 5), ("18h45", "20h15", 5), ("9h", "10h30", "sab"), ("10h30", "12h", "sab")]
+    cab = '<div class="pg-sem-c"></div>' + "".join(f'<div class="pg-sem-c d">{d}</div>' for d in dias)
+    corpo = ""
+    for a, b, q in linhas:
+        corpo += f'<div class="pg-sem-h">{a}<small>às {b}</small></div>'
+        corpo += "".join('<div class="pg-sem-s on" title="{} {} às {}"></div>'.format(d, a, b) if ((q == 5 and i < 5) or (q == "sab" and i == 5)) else '<div class="pg-sem-s"></div>' for i, d in enumerate(dias))
+    return (f'<div class="pg-semana" role="img" aria-label="Horários: de segunda a sexta, 14h às 15h30, 15h30 às 17h, 17h15 às 18h45 e 18h45 às 20h15; sábado, 9h às 10h30 e 10h30 às 12h">{cab}{corpo}</div>')
+
+
+def par_celulares(a, b, chips=()):
+    """dois celulares lado a lado, um mais alto que o outro (telas reais do Portal)"""
+    ch = "".join(f'<span class="chip c{i + 1}"><i>{ic(c[0])}</i><span><b>{e(c[1])}</b>{e(c[2])}</span></span>' for i, c in enumerate(chips[:2]))
+    return (f'<div class="pg-fc pg-fcel"><span class="pg-anel" aria-hidden="true"></span><span class="pg-anel b" aria-hidden="true"></span>'
+            + celular(a[0], a[1], classe="tras") + celular(b[0], b[1], classe="frente") + ch + "</div>")
+
+
 def demo_portal():
     """animação: no Portal, a teoria, o treino e a questão oficial abrem uma depois da outra (só CSS; parada para quem pede menos movimento)"""
     passos = [("Teoria", "O que o edital pede e a explicação completa, com gráficos e exemplos."),
@@ -393,12 +412,24 @@ PASSOS = [("Diagnóstico", "Algumas questões por matéria mostram onde o aluno 
           ("Prova oficial", "Questões que caíram de verdade na prova, com a prova e o ano."),
           ("Revisão", "Cada erro vai para o caderno de erros, e o conteúdo volta em 1, 7 e 30 dias.")]
 ROTA = '<ol class="pg-rota">' + "".join(f"<li><b>{e(t)}</b><span>{e(x)}</span></li>" for t, x in PASSOS) + "</ol>"
+MATERIAS = ('<div class="pg-mats">' + "".join(f'<div class="pg-mat {c}"><b>{e(n)}</b><span>{e(x)}</span></div>' for c, n, x in [
+    ("fis", "Física", "Do movimento à eletricidade, com gráficos e contas passo a passo."),
+    ("qui", "Química", "Da tabela periódica às reações, com exercícios do jeito que a prova cobra."),
+    ("mat", "Matemática", "Da base às funções e à geometria, com o professor ao lado."),
+    ("por", "Português", "Gramática, interpretação de texto e literatura."),
+]) + "</div>")
 PAIS = recursos([
     ("check", "A semana numa frase", "Como o filho está, com o selo Indo bem, Pede atenção ou Precisa de apoio."),
     ("grafico", "Os sinais explicados", "Presença, tarefas, simulados e estudo em casa, com o que cada número quer dizer e como ajudar."),
     ("rota", "A trilha até a prova", "Quanto do edital já foi estudado, matéria por matéria."),
     ("chat", "A coordenação junto", "Ela acompanha a mesma trilha e é avisada quando o aluno fica dias sem estudar."),
 ])
+PAIS_LISTA = '<ul class="pg-lista">' + "".join(f'<li><i>{ic(i)}</i><div><b>{e(t)}</b>{e(x)}</div></li>' for i, t, x in [
+    ("check", "A semana numa frase", "Como o filho está, com o selo Indo bem, Pede atenção ou Precisa de apoio."),
+    ("grafico", "Os sinais explicados", "Presença, tarefas, simulados e estudo em casa, com o que cada número quer dizer e como ajudar."),
+    ("rota", "A trilha até a prova", "Quanto do edital já foi estudado, matéria por matéria."),
+    ("chat", "A coordenação junto", "Ela acompanha a mesma trilha e é avisada quando o aluno fica dias sem estudar."),
+]) + "</ul>"
 
 
 def visita(titulo="Venha conhecer o Quarks"):
@@ -553,9 +584,8 @@ def paginas_servicos():
         ("Tem resultado?", "Todos os alunos que fizeram o Acompanhamento do Quarks ao longo de todo o ensino médio foram aprovados."),
     ]
     faq, fs = faq_html(perguntas)
-    horarios = ('<div class="pg-recursos n2"><div class="pg-rec"><i>' + ic("relogio") + '</i><b>Segunda a sexta</b><p>14h às 15h30 · 15h30 às 17h · 17h15 às 18h45 · 18h45 às 20h15</p></div>'
-                '<div class="pg-rec"><i>' + ic("calendario") + '</i><b>Sábado</b><p>9h às 10h30 · 10h30 às 12h</p></div></div>'
-                '<p style="margin-top:18px">O horário escolhido fica fixo o ano todo. As vagas são poucas por módulo.</p>')
+    horarios = dois('<p>Cada aula tem <b>1h30</b>. O aluno escolhe os módulos na matrícula, e o horário fica <b>fixo o ano todo</b>.</p>'
+                    '<p>De segunda a sexta à tarde e à noite, e no sábado de manhã. As vagas são poucas por módulo: no máximo 2 alunos por turma.</p>', semana())
     corpo = (
         bloco("O ano inteiro ao lado do seu filho", dois(
             "<p>No Acompanhamento Escolar do Quarks, o aluno tem <b>Física, Química, Matemática e Português</b> toda semana, com <b>no máximo 2 alunos por turma</b> e o mesmo horário o ano todo. "
@@ -563,7 +593,7 @@ def paginas_servicos():
             "<p>O PISM é feito em três etapas, uma em cada ano do ensino médio. Estudando junto com a escola, o aluno fecha cada etapa sem dúvidas acumuladas e chega à prova confiante, sem correria de última hora.</p>",
             moldura("/site/img/ft-equipe.webp", "Professores do Quarks abraçados, com a camiseta da marca", "A equipe do Quarks", "50% 30%")), olho="Do 6º ano ao 3º do médio")
         + bloco("Horários", horarios, olho="1h30 cada aula", id_="horarios")
-        + bloco("Os pais veem tudo, sem precisar perguntar", PAIS + "<p style=\"margin-top:18px\">Inclui a trilha de estudos no Portal Quarks, montada pelo edital da prova. No Acompanhamento Escolar, a trilha cobre só as disciplinas escolhidas na matrícula.</p>", "pg-lilas", olho="Portal das famílias")
+        + bloco("Os pais veem tudo, sem precisar perguntar", dois(PAIS_LISTA, par_celulares(("/site/img/trilha-8.webp?v=2", "Portal das famílias: a trilha do filho até a prova"), ("/site/img/trilha-7.webp?v=2", "Portal das famílias: a semana do filho numa frase e os sinais explicados"), [("check", "A semana numa frase", "com o selo da semana"), ("rota", "A trilha até a prova", "matéria por matéria")])) + "<p style=\"margin-top:18px\">Inclui a trilha de estudos no Portal Quarks, montada pelo edital da prova. No Acompanhamento Escolar, a trilha cobre só as disciplinas escolhidas na matrícula.</p>", "pg-lilas", olho="Portal das famílias")
         + bloco("100% de aprovação", '<p style="font-size:20px;max-width:46ch">Todos os alunos que fizeram o Acompanhamento do Quarks ao longo de todo o ensino médio foram aprovados.</p>', "pg-roxo", olho="Resultado")
         + bloco("Por dentro do Quarks", galeria(), olho="Fotos")
         + faq + visita()
@@ -593,6 +623,13 @@ def paginas_servicos():
                 "Serve para tirar dúvidas, revisar a matéria da escola ou se preparar para uma prova: o professor parte do que o aluno trouxer.</p>"
                 "<p>Para quem precisa de acompanhamento toda semana, o caminho é o <a href=\"/acompanhamento-escolar/\">Acompanhamento Escolar</a>, com no máximo 2 alunos e horário fixo.</p>",
                 moldura("/site/img/aula-avulsa.webp", "Sala de aula do Quarks", "Sala do Quarks em Juiz de Fora", "50% 50%")), olho="Individual")
+             + bloco("Para que serve", recursos([
+                 ("calendario", "Prova da escola chegando", "Revisar o conteúdo da prova e treinar as questões que costumam cair."),
+                 ("lapis", "Dúvida que travou a lista", "Aquele exercício que não sai: o professor resolve junto e explica o caminho."),
+                 ("livro", "Conteúdo que ficou para trás", "Retomar a base que faltou para acompanhar a matéria nova."),
+                 ("alvo", "Reta final do PISM ou do IF", "Revisar o que mais cai e resolver questões oficiais com o professor."),
+             ]), olho="Quando chamar")
+             + bloco("Quatro matérias, o professor de cada uma", MATERIAS, olho="Matérias")
              + bloco("Como funciona", recursos([
                  ("chat", "1. Fale com o Quarks", "Pelo WhatsApp, diga a matéria, o conteúdo e os dias possíveis."),
                  ("calendario", "2. Escolha o horário", "O Quarks responde com os horários livres dos professores."),
@@ -606,9 +643,9 @@ def paginas_servicos():
              lead="Física, Química, Matemática ou Português, para tirar dúvidas, revisar a matéria da escola ou se preparar para uma prova.",
              ctas=botoes("Agendar uma aula", "Olá! Quero agendar uma aula avulsa no Quarks."), corpo=corpo,
              numeros=num(("1", "aluno e um professor"), ("4", "matérias à escolha")),
-             visual=capa_foto("/site/img/ft-equipe-alto.webp", "Professores do Quarks com a camiseta da marca", "50% 40%",
+             visual=capa_foto("/site/img/ft-professores-alunas.webp", "Professores do Quarks com duas alunas aprovadas", "50% 30%",
                               [("pessoa", "Só você e o professor", "aula individual"), ("lapis", "Traga a dúvida", "lista, prova ou caderno")]),
-             trilha=[("Aula particular", "/aula-particular/")], imagem="/site/img/ft-equipe-alto.webp", prioridade="0.8",
+             trilha=[("Aula particular", "/aula-particular/")], imagem="/site/img/ft-professores-alunas.webp", prioridade="0.8",
              schemas=[servico("Aula particular (aula avulsa)", "Aula particular individual de Física, Química, Matemática ou Português em Juiz de Fora."), fs])
 
     # Mentoria
@@ -627,6 +664,14 @@ def paginas_servicos():
                  ("calendario", "Plano que cabe na rotina", "Um cronograma possível, com escola, cursos e descanso."),
                  ("chat", "Encontros ao longo do ano", "Para ver a evolução, ajustar o plano e não perder o rumo."),
              ]), "pg-lilas", olho="Na prática")
+             + bloco("As ferramentas da mentoria", dois(
+                 '<ul class="pg-lista">'
+                 f'<li><i>{ic("grafico")}</i><div><b>Nota de corte de cada curso</b>A meta sai das <a href="/nota-de-corte-pism/">notas de corte oficiais da UFJF</a> e do <a href="/nota-de-corte-if-sudeste/">IF Sudeste</a>.</div></li>'
+                 f'<li><i>{ic("alvo")}</i><div><b>Simulador do PISM</b>Quanto falta em cada módulo para chegar ao curso: <a href="/simulador-pism/">faça a conta</a>.</div></li>'
+                 f'<li><i>{ic("rota")}</i><div><b>A trilha no Portal Quarks</b>O plano vira uma trilha de estudos, assunto por assunto, que o mentor acompanha.</div></li>'
+                 f'<li><i>{ic("familia")}</i><div><b>Família junto</b>Os pais veem a evolução no portal das famílias.</div></li></ul>',
+                 par_celulares(("/site/img/trilha-6.webp?v=2", "Plano do dia no Portal Quarks"), ("/site/img/trilha-2.webp?v=2", "Minha trilha no Portal Quarks"),
+                               [("calendario", "Plano do dia", "o que estudar hoje"), ("rota", "Minha trilha", "o edital, assunto por assunto")])), olho="Na mentoria")
              + faq + visita("Onde fica")
              + cta("Quero uma mentoria", "O Quarks responde pelo WhatsApp com os próximos passos.", "Quero uma mentoria", "Olá! Quero saber da Mentoria de estudos do Quarks."))
     escrever("mentoria-de-estudos", titulo="Mentoria de estudos em Juiz de Fora | Quarks Edu", sec="pgment",
@@ -659,7 +704,7 @@ def pagina_aprovados():
              h1="Aprovados do Quarks", selo="200+ aprovados", lead="UFJF, UFRJ e IF Sudeste MG. Cada um escreveu no braço o curso que conquistou.",
              numeros=num(("200+", "aprovados"), ("3", "instituições: UFJF, UFRJ e IF")),
              visual=capa_foto("/site/img/ft-aprovados-ufjf.webp", "Aprovados do Quarks com APROVADO e UFJF escritos nos braços, junto da equipe", "50% 35%",
-                              [("estrela", "UFJF, UFRJ e IF", "aprovados de verdade"), ("turma", "Turmas pequenas", "até 10 por turma")]),
+                              [("estrela", "UFJF, UFRJ e IF", "aprovados de verdade"), ("lapis", "No braço", "o curso que conquistaram")]),
              corpo=corpo, trilha=[("Aprovados", "/aprovados/")], imagem="/site/img/ft-aprovados-ufjf.webp", prioridade="0.7")
 
 

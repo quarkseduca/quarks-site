@@ -467,3 +467,28 @@ body.d-g .linha4.l3{grid-template-columns:repeat(3,minmax(0,1fr))}
 .pg-fplay .sim img{width:38px;height:38px}
 .pg-dois .pg-fcel{margin:20px auto}
 @media (max-width:760px){.pg-fplay{width:100%}.pg-fplay .chip.c1{right:0}.pg-fplay .chip.c2{left:0}}
+
+/* ===== 12/11/2026: melhorias das outras páginas (grade da semana, lista com ícones, matérias, aprovados sem linha órfã) ===== */
+.pg-semana{display:grid;grid-template-columns:76px repeat(6,minmax(0,1fr));gap:6px;background:var(--branco);border:1px solid var(--linha);border-radius:24px;padding:18px}
+.pg-sem-c{font:800 13px var(--f-texto);text-transform:uppercase;letter-spacing:.08em;color:var(--roxo);text-align:center;padding-bottom:4px}
+.pg-sem-h{font-family:var(--f-titulo);font-weight:800;font-size:16px;color:var(--roxo-tinta);line-height:1.1;align-self:center}
+.pg-sem-h small{display:block;font:500 12px var(--f-texto);color:var(--cinza)}
+.pg-sem-s{height:40px;border-radius:12px;background:var(--pg-nevoa,#F7F5FE)}
+.pg-sem-s.on{background:linear-gradient(135deg,var(--roxo),var(--roxo-tinta));box-shadow:inset 0 0 0 2px rgba(255,255,255,.25)}
+.pg-lista{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.pg-lista li{display:flex;gap:14px;align-items:flex-start;background:var(--branco);border:1px solid var(--linha);border-radius:18px;padding:16px 18px;line-height:1.5}
+.pg-lista li i{flex:0 0 40px;height:40px;border-radius:12px;background:var(--lilas);color:var(--roxo);display:grid;place-items:center}
+.pg-lista li i svg{width:21px;height:21px}
+.pg-lista li b{display:block;font-family:var(--f-titulo);font-size:17px;color:var(--roxo-tinta)}
+.pg-mats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.pg-mat{border-radius:22px;padding:22px 20px 24px;color:var(--branco);min-height:150px;display:flex;flex-direction:column;gap:8px;position:relative;overflow:hidden}
+.pg-mat::after{content:"";position:absolute;right:-40px;bottom:-40px;width:130px;height:130px;border-radius:50%;border:2px solid rgba(255,255,255,.3)}
+.pg-mat b{font-family:var(--f-titulo);font-size:24px}
+.pg-mat span{font-size:15px;line-height:1.45;opacity:.95}
+.pg-mat.fis{background:linear-gradient(140deg,#0F8B8D,#0B6B6D)}
+.pg-mat.qui{background:linear-gradient(140deg,#6551D1,#4B39B3)}
+.pg-mat.mat{background:linear-gradient(140deg,#4B39B3,#3A2196)}
+.pg-mat.por{background:linear-gradient(140deg,#E8408A,#B92A68)}
+@media (min-width:981px){.pg-aprov{grid-template-columns:repeat(7,minmax(0,1fr));gap:12px}.pg-aprov figcaption{font-size:13px}}
+@media (max-width:980px){.pg-mats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:760px){.pg-semana{grid-template-columns:58px repeat(6,minmax(0,1fr));gap:4px;padding:12px}.pg-sem-s{height:32px;border-radius:9px}.pg-sem-c{font-size:11px;letter-spacing:.02em}.pg-sem-h{font-size:14px}}
