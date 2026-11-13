@@ -3,8 +3,10 @@
 - **O nome é masculino: "o Quarks"** (do Quarks, no Quarks, pelo Quarks).
 - **Antes de tudo, leia o cérebro do Quarks** (repositório `quarkseduca/quarks-cerebro`), em especial `roteiros/vitrine-completa.md` e `decisoes/registro.md` (vitrine aprovada em 18/10/2026).
 - Este repositório é o **site principal** em `www.quarksedu.com.br` (quem é o Quarks, presencial, trilha de estudos, aprovados, visita). A venda é toda na loja (`testando-apostilas`, pasta `loja/`).
-- **Trabalhe sempre em branch.** Só publique quando o dono disser "pode publicar o site". A autorização vale para aquela publicação.
-- **Na Hostinger, o site é só o `index.html` da raiz do `public_html`** (e os arquivos novos deste repositório). As pastas `familia`, `lab`, `labaluno`, `labprof`, `loja`, `minhacasa`, `portal`, `prof`, `quarks-backups` e `sistema` são de outros sistemas e **nunca** podem ser apagadas, renomeadas nem sobrescritas pela publicação do site.
+- **Trabalhe sempre em branch.** **Todo push ou merge no `main` vai para o ar sozinho** (ação `.github/workflows/publicar.yml`, por FTPS): nunca dê push no `main` sem o dono dizer "pode publicar o site". A autorização vale para aquela publicação.
+- **Páginas geradas:** as pastas listadas em `paginas.txt` (serviços, guia e gabarito do PISM, nota de corte, simulador, aprovados) e o `sitemap.xml` são feitos por `python3 scripts/gerar_paginas.py`. **Não edite os gerados à mão:** mude o gerador e rode de novo.
+- **Cache da Hostinger:** ao mudar CSS ou JS, **troque o nome do arquivo** (ex.: `site/site-AAAAMMDD.css`) e atualize as referências; o `?v=` pode ser ignorado por até 7 dias.
+- **Na Hostinger, o site fica na raiz do `public_html`:** a publicação envia só `index.html`, `robots.txt`, `sitemap.xml`, `.htaccess`, `site/`, `privacidade/`, `termos/` e as pastas de `paginas.txt`. As pastas `familia`, `lab`, `labaluno`, `labprof`, `loja`, `minhacasa`, `portal`, `prof`, `quarks-backups` e `sistema` são de outros sistemas e **nunca** podem ser apagadas, renomeadas nem sobrescritas pela publicação do site.
 - `backup/` guarda a cópia do site que estava no ar antes do redesenho. Não apague.
 - Identidade visual: roxo #6551D1 (dominante, tons escuros sempre puxando para o roxo, nunca para o azul), lilás #F1EEFD, branco, carvão #292B2C, amarelo #FFD10C só em destaque. Bricolage Grotesque nos títulos, Figtree no texto. Só tema claro.
 - Nada de número, depoimento, preço ou aprovado inventado. Textos, fotos, listas e preços editáveis pelo painel (mesmo padrão da loja: atributos `data-c` e `data-lista`).
