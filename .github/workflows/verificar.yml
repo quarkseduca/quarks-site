@@ -1,0 +1,16 @@
+# Verificação do site (scripts/verificar_tudo.py) em todo pull request. Só confere; não publica nada.
+# No push para o main quem confere é o publicar.yml, antes de enviar (se falhar, nada vai para o ar).
+name: Verificar
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verificar tudo
+        run: python3 scripts/verificar_tudo.py

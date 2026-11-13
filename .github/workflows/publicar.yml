@@ -18,6 +18,8 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+      - name: Verificar antes de enviar (se falhar, nada vai para o ar)
+        run: python3 scripts/verificar_tudo.py
       - name: Separar só os arquivos do site
         run: |
           mkdir _publicar

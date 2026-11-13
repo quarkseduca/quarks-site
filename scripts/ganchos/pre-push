@@ -1,0 +1,44 @@
+#!/bin/bash
+# Trava antes do push (auditoria de 13/11/2026, item A49).
+# Todo push para o main do quarks-site vai para o ar sozinho. Este gancho roda a verificação ANTES de o push sair
+# e recusa o envio se ela falhar. Em qualquer outra branch ele não faz nada.
+# Ligar num clone novo: git config core.hooksPath scripts/ganchos (o scripts/verificar_tudo.py e o início de sessão já fazem).
+# Pular a trava (git push --no-verify) só com ordem expressa do dono.
+PROTEGIDA="refs/heads/main"
+RAIZ="$(git rev-parse --show-toplevel)" || exit 1
+ZERO="0000000000000000000000000000000000000000"
+
+while read -r ref_local sha_local ref_remoto sha_remoto; do
+  [ "$ref_remoto" = "$PROTEGIDA" ] || continue
+
+  echo "" >&2
+  echo "== Trava do Quarks: este push vai para o main, que publica o site sozinho. Conferindo antes... ==" >&2
+
+  if [ "$sha_local" = "$ZERO" ]; then
+    echo "RECUSADO: este comando apagaria o main do site. Isso nunca é feito." >&2
+    exit 1
+  fi
+  if [ "$sha_local" != "$(git -C "$RAIZ" rev-parse HEAD)" ]; then
+    echo "RECUSADO: o que está sendo enviado não é o que está aberto nesta pasta." >&2
+    echo "Entre no main (git checkout main), junte a branch e envie de lá, para a verificação conferir exatamente o que vai ao ar." >&2
+    exit 1
+  fi
+  if [ -n "$(git -C "$RAIZ" status --porcelain --untracked-files=no)" ]; then
+    echo "RECUSADO: há mudança solta (sem commit) em arquivo do site. A verificação conferiria uma coisa e o push enviaria outra." >&2
+    echo "Faça o commit ou desfaça a mudança e tente de novo." >&2
+    exit 1
+  fi
+
+  if ! command -v python3 >/dev/null 2>&1; then
+    echo "RECUSADO: python3 não encontrado, não dá para rodar a verificação." >&2
+    exit 1
+  fi
+  if ! QK_PUBLICAR_BASE="$sha_remoto" python3 "$RAIZ/scripts/verificar_tudo.py" --publicar >&2 </dev/null; then
+    echo "" >&2
+    echo "RECUSADO: a verificação falhou, então NADA foi enviado e o site no ar continua como estava." >&2
+    echo "Corrija o que está marcado com FALHA acima e envie de novo." >&2
+    exit 1
+  fi
+  echo "== Verificação passou: o push para o main pode seguir. ==" >&2
+done
+exit 0
