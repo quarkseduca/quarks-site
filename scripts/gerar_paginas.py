@@ -355,6 +355,7 @@ def escrever(caminho, *, titulo, descricao, h1, lead, corpo, trilha, selo="", ct
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="only light">
 <title{dc('meta.titulo')}>{e(titulo)}</title>
 <meta name="description"{dc('meta.descricao')} content="{e(descricao)}">
 <meta name="robots" content="index, follow, max-image-preview:large">
