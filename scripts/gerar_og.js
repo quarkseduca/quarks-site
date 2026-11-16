@@ -1,12 +1,12 @@
 // Imagens de compartilhamento (1200x630) de cada página gerada, em site/og/<pasta>.jpg (barra vira "--").
 // Rode depois de scripts/gerar_paginas.py (que escreve scripts/og-paginas.json) e rode o gerador de novo
 // para as páginas apontarem para as imagens:  node scripts/gerar_og.js && python3 scripts/gerar_paginas.py
-// Só algumas páginas (ex.: no dia do gabarito):  node scripts/gerar_og.js gabarito-pism-2027 pism
+// Só algumas páginas (ex.: no dia do gabarito):  node scripts/gerar_og.js gabarito-pism-2027 pism   (página inicial: inicio)
 const { chromium } = require('playwright');
 const fs = require('fs'), path = require('path');
 const RAIZ = path.join(__dirname, '..');
 const SO = process.argv.slice(2);
-const lista = JSON.parse(fs.readFileSync(path.join(__dirname, 'og-paginas.json'), 'utf8')).filter((x) => !SO.length || SO.includes(x.pasta));
+const lista = JSON.parse(fs.readFileSync(path.join(__dirname, 'og-paginas.json'), 'utf8')).filter((x) => !SO.length || SO.includes(x.arquivo || x.pasta));
 if (!lista.length) { console.error('Nenhuma página com esse nome em og-paginas.json: ' + SO.join(', ')); process.exit(1); }
 const TIPOS = { woff2: 'font/woff2', png: 'image/png', webp: 'image/webp', jpg: 'image/jpeg' };
 const _cache = {};
@@ -44,9 +44,9 @@ p{font-size:25px;line-height:1.4;opacity:.92;margin-top:20px;display:-webkit-box
       : `<div class="vis" style="display:grid;place-items:center"><div class="sim" style="position:static;width:260px;height:260px"><img style="width:160px" src="${url('site/img/symbol-purple-transparent.png')}"></div></div>`;
     const html = `<!doctype html><meta charset="utf-8"><style>${css}</style><i class="orb"></i><i class="orb b"></i>
       <div class="tx"><img class="logo" src="${url('site/img/logo-white-text.png')}"><br>${x.selo ? `<span class="selo">${esc(x.selo)}</span>` : ''}
-      <h1>${esc(x.titulo)}</h1><p>${esc(x.lead)}</p></div>${vis}<div class="url">quarksedu.com.br/${esc(x.pasta)}/</div>`;
+      <h1>${esc(x.titulo)}</h1><p>${esc(x.lead)}</p></div>${vis}<div class="url">quarksedu.com.br${x.pasta ? '/' + esc(x.pasta) + '/' : ''}</div>`;
     await pg.setContent(html, { waitUntil: 'load' }); await pg.evaluate(() => document.fonts.ready);
-    await pg.screenshot({ path: path.join(pasta, x.pasta.replace(/\//g, '--') + '.jpg'), type: 'jpeg', quality: 82 });
+    await pg.screenshot({ path: path.join(pasta, (x.arquivo || x.pasta.replace(/\//g, '--')) + '.jpg'), type: 'jpeg', quality: 82 });
   }
   await b.close(); console.log(lista.length + ' imagens em site/og/');
 })();

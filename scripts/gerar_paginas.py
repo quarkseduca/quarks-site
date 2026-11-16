@@ -14,9 +14,10 @@ O que sai (cada uma é uma pasta com index.html, servida como /pasta/):
   - simulador-pism/ (o mesmo simulador da página inicial);
   - sitemap.xml (todas as páginas) e paginas.txt (as pastas que o publicar.yml envia).
 
-Visual (13/11/2026): site/paginas-20261116.css e site/paginas-20261116.js (mudou? nome novo com a data, aqui e nos
-index.html da raiz, privacidade e termos: o CDN da Hostinger guarda o arquivo antigo por 7 dias). Fotos reais em site/img/ft-*.webp.
-Imagens de compartilhamento: node scripts/gerar_og.js e depois rode este gerador de novo (site/og/*.jpg).
+Visual (16/11/2026): site/paginas-20261116.css, site/paginas-20261116b.js e site/site-20261116.js (mudou? nome novo com a data,
+só aqui nas constantes CSS, JS_SITE e JS_PG: o gerador troca sozinho os nomes também no index.html da raiz, em privacidade/ e
+em termos/; o CDN da Hostinger guarda o arquivo antigo por 7 dias). Fotos reais em site/img/ft-*.webp.
+Imagens de compartilhamento: node scripts/gerar_og.js e depois rode este gerador de novo (site/og/*.jpg; a da página inicial é site/og/inicio.jpg).
 
 Banco de notas novo (todo ano, quando sai o resultado do PISM III)? Rode de novo, depois o gerar_og.js e de novo este, e faça commit.
 Página nova? Acrescente aqui; não edite os index.html gerados à mão (serão sobrescritos).
@@ -32,10 +33,10 @@ AVALIAR = "https://g.page/r/CU071YWDNuDYEBM/review"   # link "Pedir avaliações
 # (auditoria A50, 16/11/2026: as páginas geradas tinham ficado em 25.14 enquanto a página inicial já estava em 25.53).
 SIM_V = re.search(r"bancodenotas/simulador\.js\?v=([0-9.]+)", open(os.path.join(RAIZ, "index.html"), encoding="utf-8").read()).group(1)
 CSS = ["/site/site-20261019c.css", "/site/vitrine-20261019.css", "/site/paginas-20261116.css"]   # nome novo a cada mudança (o CDN guarda 7 dias)
-JS_SITE = "/site/site-20261110.js"
+JS_SITE = "/site/site-20261116.js"   # 16/11/2026: link "#..." salvo no painel vira "/#..." fora da página inicial (g10-02)
 PISM_INICIO = "07/06/2027"        # Preparatório PISM online (decisão do dono, 06/11/2026)
 PISM_INICIO_CURTO = "07/06"
-JS_PG = "/site/paginas-20261116.js"   # contagem regressiva, linha do tempo, filtros, tabelas no celular, aparição suave
+JS_PG = "/site/paginas-20261116b.js"   # contagem regressiva, linha do tempo, filtros, tabelas no celular, aparição suave
 # pastas de outros sistemas no public_html: nunca podem ser usadas por página do site
 PROIBIDAS = {"familia", "lab", "labaluno", "labprof", "loja", "minhacasa", "portal", "prof", "quarks-backups", "sistema", "site", "privacidade", "termos"}
 
@@ -781,7 +782,8 @@ def tabela_datas():
     for ev, quando, iso, det in DATAS:
         a, m, d = iso.split("-")
         dia = f"{d}–06" if ev.startswith("Provas") else d
-        li.append(f'<li data-dia="{iso}"><div class="dia"><b>{dia}</b><small>{MESES[int(m) - 1]} {a}</small></div><div class="ev"><b>{e(ev)}</b><small>{e(quando)} · {e(det)}</small></div></li>')
+        fim = ' data-fim="2026-12-06"' if ev.startswith("Provas") else ""   # provas em dois dias: só "passou" depois do último
+        li.append(f'<li data-dia="{iso}"{fim}><div class="dia"><b>{dia}</b><small>{MESES[int(m) - 1]} {a}</small></div><div class="ev"><b>{e(ev)}</b><small>{e(quando)} · {e(det)}</small></div></li>')
     return '<ol class="pg-tempo">' + "".join(li) + "</ol>"
 
 
@@ -805,7 +807,8 @@ def paginas_pism():
     pesos = ('<div class="pg-pesos" role="img" aria-label="Nota final de até 1.300 pontos: PISM I até 240, PISM II até 360, PISM III até 700">'
              '<div class="m1"><b>240</b><span>PISM I · 18%</span></div><div class="m2"><b>360</b><span>PISM II · 28%</span></div><div class="m3"><b>700</b><span>PISM III · 54% · total 1.300</span></div></div>')
     perguntas = [
-        ("Quando é o PISM 2027?", "As provas dos três módulos são em 05 e 06/12/2026, e os gabaritos saem em 07/12/2026."),
+        ("Quando é o PISM 2027?", (f"As provas dos três módulos foram em 05 e 06/12/2026, e a Copese/UFJF divulgou os gabaritos em {GABARITO_DIA}." if GABARITO_LINK else
+                                   "As provas dos três módulos estão marcadas para 05 e 06/12/2026. A data dos gabaritos no edital é 07/12/2026; vale sempre o site da Copese.")),
         ("Como é calculada a nota final do PISM?", "Pela Resolução CONGRAD 340/2026: Nota Final = PISM I × 0,20 + PISM II × 0,30 + PISM III × 0,50. Nos resultados, a UFJF mostra as notas com peso 2, 3 e 5 (até 240, 360 e 700 pontos, total de 1.300), que é a mesma proporção."),
         ("Quem pode fazer o PISM I?", "Quem está matriculado na 1ª série do ensino médio (ou na 2ª série de técnico de 4 anos, ou na EJA). Quem já concluiu o ensino médio não pode se inscrever no PISM I."),
         ("Quando escolho o curso?", "Só na inscrição do módulo III. É nela também que se escolhe o grupo de cotas."),
@@ -832,15 +835,16 @@ def paginas_pism():
         + faq
         + cta("Prepare-se para o PISM com o Quarks", f"Preparatório PISM online, com aulas ao vivo, turmas reduzidas e todas as disciplinas no Portal Quarks. Início em {PISM_INICIO}.", "Quero saber do Preparatório PISM",
               "Olá! Li o guia do PISM e quero saber do Preparatório PISM online do Quarks.", ("Ver o Preparatório PISM", "/preparatorio-pism/")))
-    conta = capa_contagem("2026-12-05T13:00:00-03:00", "Falta para o PISM 2027", "05 e 06/12", "Provas dos três módulos. Gabaritos em 07/12.",
+    conta = capa_contagem("2026-12-05T13:00:00-03:00", "Falta para o PISM 2027", "05 e 06/12", "Provas dos três módulos. Gabaritos: 07/12, pelo edital.",
                           '<div class="rot">PISM 2027</div><div class="val" style="font-size:40px">Provas feitas</div><div class="sub">' + (f'Gabaritos divulgados em {GABARITO_DIA}. ' if GABARITO_LINK else 'Gabaritos: 07/12/2026, pelo edital. ') + 'Resultado do módulo III: 04/02/2027.</div>',
                           (f'<div class="acao"><a class="btn am" href="/gabarito-pism-2027/">Ver o gabarito</a></div>' if GABARITO_LINK else '<div class="acao"><a class="btn am" href="#datas">Ver todas as datas</a></div>'))
     escrever("pism", titulo="PISM 2027 (UFJF): datas, como é a prova, nota e cotas | Guia do Quarks",
-             descricao="Guia do PISM 2027 da UFJF: provas em 05 e 06/12/2026, gabarito em 07/12, resultado do módulo III em 04/02/2027, como é a prova, como calcular a nota e as cotas.",
+             descricao=("Guia do PISM 2027 da UFJF: provas em 05 e 06/12/2026, " + (f"gabaritos divulgados em {GABARITO_DIA}" if GABARITO_LINK else "gabaritos em 07/12/2026 pelo edital")
+                        + ", resultado do módulo III em 04/02/2027, como é a prova, como calcular a nota e as cotas."),
              h1="PISM 2027: o guia completo", selo="Atualizado em 11/11/2026",
              lead="Datas, como é a prova de cada módulo, como a UFJF calcula a nota e como funcionam as cotas, conferido no edital da Copese.",
              ctas=f'<div class="pg-ctas"><a class="btn am" href="/nota-de-corte-pism/">Ver notas de corte</a><a class="pg-bt2" href="/simulador-pism/">Simular minha nota</a></div>',
-             numeros=num(("05 e 06/12", "provas"), ("07/12", "gabaritos"), ("04/02/2027", "resultado do módulo III")), visual=conta,
+             numeros=num(("05 e 06/12", "provas"), (GABARITO_DIA[:5] if GABARITO_LINK else "07/12", "gabaritos" if GABARITO_LINK else "gabaritos (edital)"), ("04/02/2027", "resultado do módulo III")), visual=conta,
              corpo=corpo, trilha=[("Guia do PISM", "/pism/")], prioridade="0.9",
              schemas=[fs, {"@type": "Article", "headline": "PISM 2027: o guia completo", "author": ORG, "publisher": ORG, "dateModified": HOJE, "inLanguage": "pt-BR"}])
 
@@ -1220,6 +1224,29 @@ def pagina_simulador():
                            "offers": {"@type": "Offer", "price": "0", "priceCurrency": "BRL"}, "provider": ORG}])
 
 
+# página inicial (index.html), privacidade/ e termos/ são feitas à mão, mas usam os mesmos CSS e JS das geradas:
+# o gerador troca nelas os nomes pelos das constantes (auditoria A23, 16/11/2026: a inicial tinha ficado no paginas-20261114c.css).
+OG_INICIO = {"pasta": "", "arquivo": "inicio", "titulo": "Cursinho em Juiz de Fora", "selo": "PISM · IF Sudeste · Acompanhamento Escolar",
+             "lead": "Trilha de estudos que os pais acompanham, apostilas próprias e laboratório de simulações.",
+             "valor": "", "unidade": "", "foto": "/site/img/ft-professores-alunas.webp", "quadro": ""}
+
+
+def paginas_fixas():
+    nomes = {"site": JS_SITE.split("/")[-1], "paginas-css": CSS[2].split("/")[-1]}
+    for arq in ("index.html", "privacidade/index.html", "termos/index.html"):
+        f = os.path.join(RAIZ, arq)
+        s = antes = open(f, encoding="utf-8").read()
+        s = re.sub(r'(href="/?site/)paginas-\d{8}[a-z]?\.css"', lambda m: m.group(1) + nomes["paginas-css"] + '"', s)
+        s = re.sub(r'(src="/?site/)site-\d{8}[a-z]?\.js"', lambda m: m.group(1) + nomes["site"] + '"', s)
+        for c in CSS[:2]:
+            if c.lstrip("/") not in s:
+                sys.exit(f"{arq} não usa {c} como as páginas geradas: confira o <head> dele.")
+        if s != antes:
+            with open(f, "w", encoding="utf-8") as g:
+                g.write(s)
+    OG_LISTA.append(OG_INICIO)
+
+
 def sitemap():
     fixas = [("/", "1.0"), ("/privacidade/", "0.2"), ("/termos/", "0.2")]
     urls = "".join(f"  <url><loc>{SITE}{c}</loc><lastmod>{HOJE}</lastmod><priority>{p}</priority></url>\n" for c, p in fixas + sorted(PAGINAS))
@@ -1256,6 +1283,7 @@ def main():
     paginas_if(a.gestao)
     pagina_simulador()
     pastas = sitemap()
+    paginas_fixas()
     with open(os.path.join(RAIZ, "scripts", "og-paginas.json"), "w", encoding="utf-8") as f:
         json.dump(OG_LISTA, f, ensure_ascii=False, indent=0)
     print(f"{len(PAGINAS)} páginas em {len(pastas)} pastas: {', '.join(pastas)}")

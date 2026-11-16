@@ -123,7 +123,8 @@ def v_geradas(gestao):
             return falha("gerador de páginas roda sem erro", (r.stdout + r.stderr).strip()[-800:])
         erros = []
         novas = ler(tmp / "paginas.txt").split()
-        conferir = {"sitemap.xml", "paginas.txt", "scripts/og-paginas.json"}
+        conferir = {"sitemap.xml", "paginas.txt", "scripts/og-paginas.json",
+                    "index.html", "privacidade/index.html", "termos/index.html"}   # o gerador acerta nelas os nomes de CSS e JS (A23)
         for base in (tmp, RAIZ):
             for pasta in set(pastas) | set(novas):
                 if (base / pasta).is_dir():
@@ -313,6 +314,9 @@ def v_publicar_yml():
     iv, ie = corpo.find("scripts/verificar_tudo.py"), corpo.find("FTP-Deploy-Action")
     if iv < 0 or ie < 0 or iv > ie:
         erros.append("publicar.yml: a verificação (scripts/verificar_tudo.py) tem de rodar antes do envio por FTP")
+    for acao in re.findall(r"uses:\s*(\S+)", corpo):   # A41: ação presa pelo código exato, não por etiqueta que o autor pode mover
+        if not re.search(r"@[0-9a-f]{40}$", acao):
+            erros.append(f"publicar.yml: a ação {acao} tem de ser presa pelo código exato (SHA de 40 letras), não por etiqueta")
     for n in re.findall(r"secrets\.([A-Z_]+)", corpo):
         if n not in ("FTP_SERVIDOR", "FTP_USUARIO", "FTP_SENHA", "FTP_PASTA"):
             erros.append(f"publicar.yml: segredo desconhecido {n}")

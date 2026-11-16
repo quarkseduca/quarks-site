@@ -17,7 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
+      # ações de terceiros presas pelo código exato (SHA), não pela etiqueta, que o autor pode mover (auditoria A41, 16/11/2026)
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262   # v4.4.0
       - name: Verificar antes de enviar (se falhar, nada vai para o ar)
         run: python3 scripts/verificar_tudo.py
       - name: Separar só os arquivos do site
@@ -27,7 +28,7 @@ jobs:
           for p in $(cat paginas.txt); do cp -r "$p" _publicar/; done   # páginas geradas por scripts/gerar_paginas.py
           cp -r site privacidade termos _publicar/
       - name: Enviar por FTP para a Hostinger
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: SamKirkland/FTP-Deploy-Action@8e83cea8672e3fbcbb9fdafff34debf6ae4c5f65   # v4.3.5
         with:
           server: ${{ secrets.FTP_SERVIDOR }}
           username: ${{ secrets.FTP_USUARIO }}
