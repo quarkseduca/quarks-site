@@ -28,7 +28,9 @@ SITE = "https://www.quarksedu.com.br"
 HOJE = datetime.date.today().isoformat()
 ZAP = "5532998057212"
 AVALIAR = "https://g.page/r/CU071YWDNuDYEBM/review"   # link "Pedir avaliações" do Perfil da Empresa no Google (dono, 12/11/2026)
-SIM_V = "25.14"   # mesmo ?v= do simulador na página inicial (index.html)
+# ?v= do simulador: sempre o mesmo da página inicial (index.html), lido de lá para os dois nunca se separarem
+# (auditoria A50, 16/11/2026: as páginas geradas tinham ficado em 25.14 enquanto a página inicial já estava em 25.53).
+SIM_V = re.search(r"bancodenotas/simulador\.js\?v=([0-9.]+)", open(os.path.join(RAIZ, "index.html"), encoding="utf-8").read()).group(1)
 CSS = ["/site/site-20261019c.css", "/site/vitrine-20261019.css", "/site/paginas-20261116.css"]   # nome novo a cada mudança (o CDN guarda 7 dias)
 JS_SITE = "/site/site-20261110.js"
 PISM_INICIO = "07/06/2027"        # Preparatório PISM online (decisão do dono, 06/11/2026)
