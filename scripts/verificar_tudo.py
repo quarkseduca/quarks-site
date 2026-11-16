@@ -314,6 +314,8 @@ def v_publicar_yml():
     iv, ie = corpo.find("scripts/verificar_tudo.py"), corpo.find("FTP-Deploy-Action")
     if iv < 0 or ie < 0 or iv > ie:
         erros.append("publicar.yml: a verificação (scripts/verificar_tudo.py) tem de rodar antes do envio por FTP")
+    if not re.search(r"^\s*environment:\s*producao\s*$", corpo, re.M):   # A41: só a branch main lê a senha do FTP
+        erros.append("publicar.yml: o envio tem de usar o ambiente protegido (environment: producao), onde ficam os segredos do FTP")
     for acao in re.findall(r"uses:\s*(\S+)", corpo):   # A41: ação presa pelo código exato, não por etiqueta que o autor pode mover
         if not re.search(r"@[0-9a-f]{40}$", acao):
             erros.append(f"publicar.yml: a ação {acao} tem de ser presa pelo código exato (SHA de 40 letras), não por etiqueta")

@@ -2,7 +2,7 @@
 # Envia SÓ os arquivos do site (index.html, robots.txt, sitemap.xml, .htaccess, privacidade/, termos/, site/ e as pastas listadas em paginas.txt) para a pasta do site por FTP com criptografia (FTPS).
 # As outras pastas do public_html (familia, lab, loja, portal, prof, sistema...) nunca são tocadas:
 # a ação só mexe nos arquivos que ela mesma enviou (guarda a lista em .ftp-deploy-sync-state.json no servidor).
-# Precisa de 4 segredos no GitHub (Settings > Secrets and variables > Actions), criados pelo dono:
+# Precisa de 4 segredos no ambiente "producao" do GitHub (Settings > Environments > producao, só a branch main), criados pelo dono:
 #   FTP_SERVIDOR, FTP_USUARIO, FTP_SENHA e FTP_PASTA (ex.: public_html/ ou domains/quarksedu.com.br/public_html/)
 name: Publicar o site
 on:
@@ -15,6 +15,9 @@ permissions:
 jobs:
   publicar:
     runs-on: ubuntu-latest
+    # A41 (16/11/2026): os segredos do FTP moram no ambiente "producao" (Settings > Environments), que só aceita a branch main.
+    # Uma ação rodando em outra branch não consegue ler a senha.
+    environment: producao
     timeout-minutes: 15
     steps:
       # ações de terceiros presas pelo código exato (SHA), não pela etiqueta, que o autor pode mover (auditoria A41, 16/11/2026)
