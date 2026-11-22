@@ -36,6 +36,7 @@ CSS = ["/site/site-20261019c.css", "/site/vitrine-20261019.css", "/site/paginas-
 JS_SITE = "/site/site-20261116.js"   # 16/11/2026: link "#..." salvo no painel vira "/#..." fora da página inicial (g10-02)
 PISM_INICIO = "07/06/2027"        # Preparatório PISM online (decisão do dono, 06/11/2026)
 PISM_INICIO_CURTO = "07/06"
+JS_SA = "/site/simulados-abertos-20261122.js"   # 22/11/2026: faixa "Simulados abertos" (aparece sozinha com inscrição aberta em prova.quarksedu.com.br)
 JS_PG = "/site/paginas-20261116b.js"   # contagem regressiva, linha do tempo, filtros, tabelas no celular, aparição suave
 # pastas de outros sistemas no public_html: nunca podem ser usadas por página do site
 PROIBIDAS = {"familia", "lab", "labaluno", "labprof", "loja", "minhacasa", "portal", "prof", "quarks-backups", "sistema", "site", "privacidade", "termos"}
@@ -402,6 +403,7 @@ def escrever(caminho, *, titulo, descricao, h1, lead, corpo, trilha, selo="", ct
 {RODAPE}
 <script src="{JS_SITE}"></script>
 <script src="{JS_PG}" defer></script>
+<script src="{JS_SA}" defer></script>
 <script src="https://sistema.quarksedu.com.br/sinal.js" data-ramo="site" defer></script>
 {scripts}
 </body>
