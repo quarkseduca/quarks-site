@@ -434,7 +434,7 @@ def botoes(principal, msg, segundo=None):
 
 
 ENDERECO = "Av. Rui Barbosa, 1449, Santa Terezinha, Juiz de Fora (MG)"
-HORARIO = "segunda a quinta, das 9h às 20h; sexta, das 9h às 19h; sábado, das 8h às 12h"
+HORARIO = "segunda a sexta, das 10h às 19h; sábado, das 8h às 12h"  # dono, 22/11/2026
 MAPA = "https://maps.google.com/?q=Av.%20Rui%20Barbosa%2C%201449%2C%20Juiz%20de%20Fora"
 PASSOS = [("Diagnóstico", "Algumas questões por matéria mostram onde o aluno está, e a trilha começa no ponto certo."),
           ("Trilha do edital", "Os conteúdos da prova na ordem certa. A coordenação ajusta para cada aluno."),
@@ -467,7 +467,7 @@ def visita(titulo="Venha conhecer o Quarks"):
     return (f'<section class="pg-sec pg-lilas"><div class="pg-in"><div class="pg-visita">'
             f'<div class="foto"><img src="/site/img/fachada.webp" alt="Fachada do Quarks na Av. Rui Barbosa, 1449, em Juiz de Fora" width="560" height="839" loading="lazy" style="object-position:50% 35%"></div>'
             f'<div class="tx"><span class="pg-olho">Visite</span><h2>{e(titulo)}</h2>'
-            f'<dl><dt>Endereço</dt><dd>{e(ENDERECO)}</dd><dt>Seg a qui</dt><dd>9h às 20h</dd><dt>Sexta</dt><dd>9h às 19h</dd><dt>Sábado</dt><dd>8h às 12h</dd><dt>WhatsApp</dt><dd>(32) 99805-7212</dd></dl>'
+            f'<dl><dt>Endereço</dt><dd>{e(ENDERECO)}</dd><dt>Seg a sex</dt><dd>10h às 19h</dd><dt>Sábado</dt><dd>8h às 12h</dd><dt>WhatsApp</dt><dd>(32) 99805-7212</dd></dl>'
             f'<div class="pg-ctas"><a class="btn am" href="{zap("Olá! Quero agendar uma visita ao Quarks.")}" target="_blank" rel="noopener">Agendar visita</a>'
             f'<a class="pg-bt2" href="{MAPA}" target="_blank" rel="noopener">Como chegar</a></div>'
             f'<p class="avalie">Já estuda ou estudou no Quarks? <a href="{AVALIAR}" target="_blank" rel="noopener">Conte como foi no Google ★</a></p></div></div></div></section>')
