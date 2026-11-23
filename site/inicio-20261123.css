@@ -1,0 +1,13 @@
+/* início (23/11/2026): atalhos do bloco Acompanhamento Escolar, abaixo dos botões */
+.d-g .a2-mais{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:4px;max-width:560px}
+.d-g .a2-chip{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:18px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);color:var(--branco);text-decoration:none;transition:background .2s,border-color .2s,transform .2s}
+.d-g .a2-chip:hover{background:rgba(255,255,255,.17);border-color:rgba(255,255,255,.45);transform:translateY(-2px)}
+.d-g .a2-chip:focus-visible{outline:3px solid var(--amarelo);outline-offset:2px}
+.d-g .a2-chip i{flex:none;width:38px;height:38px;border-radius:50%;background:var(--amarelo);color:#292B2C;display:grid;place-items:center}
+.d-g .a2-chip i svg{width:19px;height:19px}
+.d-g .a2-chip span{display:grid;gap:2px;min-width:0}
+.d-g .a2-chip b{font-size:14.5px;line-height:1.25;font-weight:700}
+.d-g .a2-chip small{font-size:13px;font-weight:700;color:var(--amarelo)}
+.d-g .a2-chip small::after{content:" →";transition:margin .2s}
+.d-g .a2-chip:hover small::after{margin-left:3px}
+@media (max-width:560px){.d-g .a2-mais{grid-template-columns:minmax(0,1fr)}}

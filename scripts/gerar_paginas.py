@@ -134,10 +134,11 @@ def faq_html(perguntas, olho="Dúvidas"):
 SIMBOLO = '<img src="/site/img/symbol-purple-transparent.png" alt="" width="58" height="58" loading="lazy">'
 
 
-def cta(titulo, texto, botao, msg, segundo=None):
+def cta(titulo, texto, botao, msg, segundo=None, janela=""):
     s = f'<a class="pg-bt2" href="{segundo[1]}">{e(segundo[0])}</a>' if segundo else ""
+    j = f' data-janela="{janela}"' if janela else ""
     return (f'<section class="pg-sec pg-auto pg-cta-sec"><div class="pg-in"><div class="pg-cta"><i class="pg-orb a" aria-hidden="true"></i><i class="pg-orb b" aria-hidden="true"></i>'
-            f'<div><h2>{e(titulo)}</h2><p>{texto}</p><div class="pg-ctas" style="margin-top:22px"><a class="btn am" href="{zap(msg)}" target="_blank" rel="noopener">{e(botao)}</a>{s}</div></div>'
+            f'<div><h2>{e(titulo)}</h2><p>{texto}</p><div class="pg-ctas" style="margin-top:22px"><a class="btn am" href="{zap(msg)}" target="_blank" rel="noopener"{j}>{e(botao)}</a>{s}</div></div>'
             f'<span class="pg-simb" aria-hidden="true">{SIMBOLO}</span></div></div></section>')
 
 
@@ -424,6 +425,14 @@ OG = {}          # pasta -> nome do arquivo em site/og/ (preenchido em main, se 
 OG_LISTA = []    # para scripts/gerar_og.js
 
 
+def janela_acomp():
+    """a mesma janela "Quero conhecer o Acompanhamento" da página inicial (dialog#j-acomp do index.html), com os caminhos absolutos"""
+    with open(os.path.join(RAIZ, "index.html"), encoding="utf-8") as f:
+        m = re.search(r'<dialog class="janela" id="j-acomp".*?</dialog>', f.read(), re.S)
+    assert m, "janela j-acomp não encontrada no index.html"
+    return re.sub(r'(src|href)="site/', r'\1="/site/', m.group(0))
+
+
 def bloco(titulo, conteudo, classe="", olho="", tx=False, id_=""):
     """uma faixa inteira; classe: "" (alterna branco/névoa), "pg-lilas" ou "pg-roxo"."""
     tom = classe if classe in ("pg-lilas", "pg-roxo") else "pg-auto"
@@ -434,9 +443,10 @@ def bloco(titulo, conteudo, classe="", olho="", tx=False, id_=""):
     return f'<section class="pg-sec {tom} {extra}"{i}><div class="pg-in"><div class="pg-cab">{o}<h2>{e(titulo)}</h2></div>{c}</div></section>'
 
 
-def botoes(principal, msg, segundo=None):
+def botoes(principal, msg, segundo=None, janela=""):
     s = f'<a class="pg-bt2" href="{segundo[1]}">{e(segundo[0])}</a>' if segundo else ""
-    return f'<div class="pg-ctas"><a class="btn am" href="{zap(msg)}" target="_blank" rel="noopener">{e(principal)}</a>{s}</div>'
+    j = f' data-janela="{janela}"' if janela else ""   # abre a janela (dialog#j-...) da página; sem JavaScript, vai direto ao WhatsApp
+    return f'<div class="pg-ctas"><a class="btn am" href="{zap(msg)}" target="_blank" rel="noopener"{j}>{e(principal)}</a>{s}</div>'
 
 
 ENDERECO = "Av. Rui Barbosa, 1449, Santa Terezinha, Juiz de Fora (MG)"
@@ -636,12 +646,13 @@ def paginas_servicos():
         + bloco("Por dentro do Quarks", galeria(), olho="Fotos")
         + faq + visita()
         + cta("Garanta a vaga do seu filho", "Diga o ano escolar e as matérias. A coordenação do Quarks responde pelo WhatsApp com os horários livres.", "Quero conhecer o Acompanhamento",
-              "Olá! Quero conhecer o Acompanhamento Escolar do Quarks."))
+              "Olá! Quero conhecer o Acompanhamento Escolar do Quarks.", janela="acomp"))
     escrever("acompanhamento-escolar", titulo="Acompanhamento e reforço escolar em Juiz de Fora | Quarks Edu", sec="pgacomp",
              descricao="Acompanhamento e reforço escolar em Juiz de Fora: Física, Química, Matemática e Português, aulas de 1h30 com no máximo 2 alunos, mesmo horário o ano todo, do 6º ano ao 3º do médio.",
              h1="Acompanhamento e reforço escolar em Juiz de Fora", selo="No máximo 2 alunos por turma",
              lead="Física, Química, Matemática e Português toda semana, no mesmo horário o ano todo. A aprovação vem como consequência.",
-             ctas=botoes("Quero conhecer", "Olá! Quero conhecer o Acompanhamento Escolar do Quarks.", ("Ver horários", "#horarios")),
+             ctas=botoes("Quero conhecer", "Olá! Quero conhecer o Acompanhamento Escolar do Quarks.", ("Ver horários", "#horarios"), janela="acomp"),
+             scripts=janela_acomp(),
              numeros=num(("1h30", "cada aula"), ("2", "alunos, no máximo, por turma"), ("100%", "de aprovação de quem fez o médio todo")),
              visual=capa_foto("/site/img/ft-equipe-festa.webp", "Professores do Quarks comemorando", "50% 40%",
                               [("relogio", "Mesmo horário", "o ano todo"), ("familia", "Pais por dentro", "no portal das famílias")]),
