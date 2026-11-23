@@ -40,9 +40,12 @@ jobs:
           P: ${{ secrets.FTP_SENHA }}
           D: ${{ secrets.FTP_PASTA }}
         run: |
+          n=0
           for c in "$D" "./" "public_html/" "domains/quarksedu.com.br/public_html/"; do
-            [ -z "$c" ] && continue; c="${c%/}/"
-            l=$(curl -s --ssl-reqd --max-time 30 --list-only --user "$U:$P" "ftp://$S/$c" || true)
+            n=$((n+1)); [ -z "$c" ] && continue; c="${c%/}/"
+            # -k: o mesmo que a ação de envio faz (security: loose); a senha continua cifrada pelo TLS
+            l=$(curl -sS -k --ssl-reqd --max-time 30 --list-only --user "$U:$P" "ftp://$S/$c" 2>/tmp/erro) || true
+            echo "tentativa $n: $(head -c 200 /tmp/erro) · pastas: $(printf '%s\n' "$l" | grep -vx '[.]*' | head -40 | tr '\n' ' ')"
             if printf '%s\n' "$l" | grep -qx sistema && printf '%s\n' "$l" | grep -qx loja && printf '%s\n' "$l" | grep -qx lab; then
               echo "dir=$c" >> "$GITHUB_OUTPUT"; echo "Pasta do site encontrada."; exit 0; fi
           done
