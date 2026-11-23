@@ -30,13 +30,30 @@ jobs:
           cp index.html robots.txt sitemap.xml .htaccess _publicar/
           for p in $(cat paginas.txt); do cp -r "$p" _publicar/; done   # páginas geradas por scripts/gerar_paginas.py
           cp -r site privacidade termos _publicar/
+      # 23/11/2026: de 17/11 a 22/11 a rotina ficou verde gravando numa pasta que não é a do site (o FTP_PASTA do ambiente producao).
+      # Agora ela descobre a pasta certa: a raiz do site é a que tem as pastas dos outros sistemas (sistema, loja, lab). Sem achar, nada é enviado.
+      - name: Descobrir a pasta do site no servidor (a que tem sistema, loja e lab)
+        id: pasta
+        env:
+          S: ${{ secrets.FTP_SERVIDOR }}
+          U: ${{ secrets.FTP_USUARIO }}
+          P: ${{ secrets.FTP_SENHA }}
+          D: ${{ secrets.FTP_PASTA }}
+        run: |
+          for c in "$D" "./" "public_html/" "domains/quarksedu.com.br/public_html/"; do
+            [ -z "$c" ] && continue; c="${c%/}/"
+            l=$(curl -s --ssl-reqd --max-time 30 --list-only --user "$U:$P" "ftp://$S/$c" || true)
+            if printf '%s\n' "$l" | grep -qx sistema && printf '%s\n' "$l" | grep -qx loja && printf '%s\n' "$l" | grep -qx lab; then
+              echo "dir=$c" >> "$GITHUB_OUTPUT"; echo "Pasta do site encontrada."; exit 0; fi
+          done
+          echo "Não achei a pasta do site (com sistema, loja e lab) pelo FTP: nada foi enviado."; exit 1
       - name: Enviar por FTP para a Hostinger
         uses: SamKirkland/FTP-Deploy-Action@8e83cea8672e3fbcbb9fdafff34debf6ae4c5f65   # v4.3.5
         with:
           server: ${{ secrets.FTP_SERVIDOR }}
           username: ${{ secrets.FTP_USUARIO }}
           password: ${{ secrets.FTP_SENHA }}
-          server-dir: ${{ secrets.FTP_PASTA }}
+          server-dir: ${{ steps.pasta.outputs.dir }}   # a pasta conferida no passo anterior
           protocol: ftps   # usuário e senha viajam cifrados (FTP com TLS explícito, porta 21)
           local-dir: ./_publicar/
           dangerous-clean-slate: false
